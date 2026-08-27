@@ -727,19 +727,16 @@ h3 { font-size: 1.2rem; }
 @media (min-width: 1024px) {
   .kundalini__row {
     flex-direction: row;
-    min-height: 420px;
+    align-items: center;
   }
   .kundalini__photo-col {
     width: 50%;
-    aspect-ratio: auto;
+    aspect-ratio: 4 / 3;
     flex-shrink: 0;
   }
   .kundalini__text-col {
     width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: var(--section-gap-desktop) clamp(2rem, 5vw, 5rem);
+    padding: 3rem clamp(2rem, 5vw, 5rem);
   }
 }
 
