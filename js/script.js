@@ -76,6 +76,7 @@
   function menuKeyHandler(e) {
     if (e.key === 'Escape') { closeMenu(); return; }
     if (e.key !== 'Tab') return;
+    if (!panel) return;
 
     // Focus trap inside panel
     const focusable = Array.from(panel.querySelectorAll(focusableSelectors));
