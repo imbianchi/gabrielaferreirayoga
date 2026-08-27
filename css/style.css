@@ -628,7 +628,7 @@ h3 { font-size: 1.2rem; }
 .lesson-cards-controls {
   display: flex;
   justify-content: flex-start;
-  margin-top: 0.35rem;
+  margin-top: 0.1rem;
 }
 .lesson-cards-nav {
   display: none;
@@ -640,7 +640,7 @@ h3 { font-size: 1.2rem; }
   align-items: center;
   justify-content: center;
   color: var(--color-light-orange);
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   font-weight: 700;
   transition: opacity 0.15s;
 }
