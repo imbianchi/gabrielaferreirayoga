@@ -252,7 +252,14 @@
       cardRow.scrollBy({ left: -getCardWidth(), behavior: 'smooth' });
     });
 
-    cardRow.addEventListener('scroll', updateCardNav, { passive: true });
+    // Debounced so the arrows reflect where the scroll settles, not every
+    // intermediate position while a smooth scroll animation is still moving.
+    let scrollSettleTimer;
+    function scheduleUpdateCardNav() {
+      clearTimeout(scrollSettleTimer);
+      scrollSettleTimer = setTimeout(updateCardNav, 120);
+    }
+    cardRow.addEventListener('scroll', scheduleUpdateCardNav, { passive: true });
     window.addEventListener('resize', updateCardNav);
     updateCardNav();
   }
