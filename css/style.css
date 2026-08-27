@@ -658,6 +658,10 @@ h3 { font-size: 1.2rem; }
     flex: 0 0 330px;
     aspect-ratio: 3 / 2.2;
   }
+  .lesson-cards {
+    padding-bottom: 0;
+    margin-bottom: 25px;
+  }
   .lesson-cards-nav.is-visible { display: flex; }
 
   .accordion__trigger { padding: 0.35rem 0 1rem; }
