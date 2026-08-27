@@ -670,21 +670,23 @@ h3 { font-size: 1.2rem; }
     font-family: var(--font-sans);
     font-size: 16px;
   }
-  .accordion__inner-eyebrow { font-size: 20px; }
   .accordion__inner-divider { border-top-color: rgba(224, 138, 46, 0.4); }
   .accordion__inner-btn {
+    margin-top: 0.5rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+    border: 1px solid transparent;
     border-radius: 40px;
     font-size: 16px;
-    transition: background-color 0.25s ease, color 0.25s ease;
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
   }
   .accordion__inner-btn:hover {
     transform: none;
     box-shadow: none;
     filter: none;
-    background: var(--color-dark-green);
-    color: var(--color-grey);
+    background: var(--color-grey);
+    color: var(--color-dark-green);
+    border-color: var(--color-dark-green);
   }
 }
 
