@@ -719,7 +719,7 @@ h3 { font-size: 1.2rem; }
 .kundalini__text-col h2 { font-weight: 400; }
 .kundalini__text-col p {
   font-family: var(--font-sans);
-  color: var(--color-text-muted);
+  color: var(--color-dark-green);
   margin-top: 1rem;
   max-width: 520px;
 }
@@ -731,7 +731,7 @@ h3 { font-size: 1.2rem; }
   }
   .kundalini__photo-col {
     width: 50%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 3 / 2;
     flex-shrink: 0;
   }
   .kundalini__text-col {
