@@ -22,6 +22,28 @@
   window.addEventListener('scroll', updateHeaderBg, { passive: true });
   updateHeaderBg();
 
+  /* ── Scrollspy: highlight current section in the nav ────── */
+  const navLinks = document.querySelectorAll('.nav__links a');
+  const spySections = Array.from(navLinks)
+    .map((a) => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+
+  if (spySections.length && 'IntersectionObserver' in window) {
+    const spy = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const link = document.querySelector(`.nav__links a[href="#${entry.target.id}"]`);
+          if (!link) return;
+          navLinks.forEach((a) => a.classList.remove('active'));
+          link.classList.add('active');
+        });
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
+    );
+    spySections.forEach((section) => spy.observe(section));
+  }
+
   /* ── Smooth scroll ────────────────────────────────────── */
   function smoothScrollTo(targetId) {
     const target = document.getElementById(targetId);
