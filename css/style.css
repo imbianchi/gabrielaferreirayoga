@@ -716,7 +716,9 @@ h3 { font-size: 1.2rem; }
   background: var(--color-grey);
   padding: var(--section-gap-mobile) var(--container-pad);
 }
+.kundalini__text-col h2 { font-weight: 400; }
 .kundalini__text-col p {
+  font-family: var(--font-sans);
   color: var(--color-text-muted);
   margin-top: 1rem;
   max-width: 520px;
@@ -725,7 +727,7 @@ h3 { font-size: 1.2rem; }
 @media (min-width: 1024px) {
   .kundalini__row {
     flex-direction: row;
-    min-height: 600px;
+    min-height: 420px;
   }
   .kundalini__photo-col {
     width: 50%;
