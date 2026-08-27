@@ -6,6 +6,60 @@
 (function () {
   'use strict';
 
+  /* ── Programa do mês / percurso (data-driven, see programas.js) ── */
+  if (window.PROGRAMAS && window.PROGRAMAS.length) {
+    const currentMonth = new Date().getMonth() + 1;
+    const current = window.PROGRAMAS.find(function (p) { return p.mes === currentMonth; });
+
+    const list = document.getElementById('percurso-list');
+    if (list) {
+      window.PROGRAMAS.forEach(function (p) {
+        const isCurrent = !!current && p.mes === current.mes;
+
+        const li = document.createElement('li');
+        li.className = 'percurso__item' + (isCurrent ? ' is-current' : '');
+
+        const num = document.createElement('span');
+        num.className = 'percurso__num';
+        num.setAttribute('aria-hidden', 'true');
+        num.textContent = p.numero;
+
+        const month = document.createElement('span');
+        month.className = 'percurso__month';
+        month.textContent = p.mesLabel.toUpperCase();
+
+        const title = document.createElement('div');
+        title.className = 'percurso__title';
+        title.textContent = p.titulo;
+
+        const desc = document.createElement('p');
+        desc.className = 'percurso__desc';
+        desc.textContent = p.resumo;
+
+        li.append(num, month, title, desc);
+
+        if (isCurrent) {
+          const badgeCol = document.createElement('div');
+          badgeCol.className = 'percurso__badge-col';
+          const badge = document.createElement('span');
+          badge.className = 'badge-disponivel';
+          badge.textContent = 'Disponível';
+          badgeCol.appendChild(badge);
+          li.appendChild(badgeCol);
+        }
+
+        list.appendChild(li);
+      });
+    }
+
+    if (current) {
+      const eyebrow = document.getElementById('programa-eyebrow');
+      const heading = document.getElementById('programa-heading');
+      if (eyebrow) eyebrow.textContent = 'PROGRAMA DO MÊS · ' + current.mesLabel.toUpperCase();
+      if (heading) heading.textContent = current.titulo;
+    }
+  }
+
   /* ── Sticky header ────────────────────────────────────── */
   const header = document.querySelector('.site-header');
   const hero   = document.querySelector('.hero');

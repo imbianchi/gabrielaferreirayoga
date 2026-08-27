@@ -747,8 +747,10 @@ h3 { font-size: 1.2rem; }
   background: var(--color-white);
   padding: var(--section-gap-mobile) 0;
 }
-.percurso h2 { max-width: 600px; margin-bottom: 1rem; }
+.percurso h2 { font-weight: 400; max-width: 600px; margin-bottom: 1rem; }
 .percurso__lead {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
   color: var(--color-text-muted);
   max-width: 580px;
   margin-bottom: 2.5rem;
@@ -785,7 +787,9 @@ h3 { font-size: 1.2rem; }
   align-items: center;
   gap: 0.75rem;
 }
+.percurso__item.is-current .percurso__month { color: var(--color-dark-orange); }
 .percurso__title {
+  grid-column: 2;
   font-family: var(--font-serif);
   font-size: 1.15rem;
   color: var(--color-dark-green);
@@ -800,8 +804,8 @@ h3 { font-size: 1.2rem; }
 
 .badge-disponivel {
   display: inline-block;
-  background: var(--color-dark-grey);
-  color: var(--color-dark-green);
+  background: rgba(224, 138, 46, 0.15);
+  color: var(--color-dark-orange);
   font-family: var(--font-sans);
   font-size: 0.72rem;
   font-weight: 700;
