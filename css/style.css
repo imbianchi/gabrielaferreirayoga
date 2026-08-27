@@ -737,7 +737,7 @@ h3 { font-size: 1.2rem; }
   }
   .kundalini__text-col {
     width: 50%;
-    padding: 3rem clamp(2rem, 5vw, 5rem);
+    padding: 3rem 7rem;
   }
 }
 
