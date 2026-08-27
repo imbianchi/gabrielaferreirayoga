@@ -772,14 +772,14 @@ h3 { font-size: 1.2rem; }
 }
 .percurso__num {
   font-family: var(--font-sans);
-  font-size: 0.8rem;
+  font-size: 14px;
   font-weight: 700;
   color: var(--color-light-green);
   line-height: 1;
 }
 .percurso__month {
   font-family: var(--font-sans);
-  font-size: 0.7rem;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -790,16 +790,16 @@ h3 { font-size: 1.2rem; }
 .percurso__title {
   grid-column: 1;
   font-family: var(--font-serif);
-  font-size: 1.15rem;
+  font-size: 18px;
   color: var(--color-dark-green);
-  margin-top: 0.3rem;
+  margin-top: 0.1rem;
 }
 .percurso__desc {
   font-family: var(--font-sans);
   font-size: 0.9rem;
   color: var(--color-text-muted);
   grid-column: 1;
-  margin-top: 0.2rem;
+  margin-top: 0.05rem;
 }
 
 .badge-disponivel {
@@ -807,7 +807,7 @@ h3 { font-size: 1.2rem; }
   background: rgba(224, 138, 46, 0.15);
   color: var(--color-dark-orange);
   font-family: var(--font-sans);
-  font-size: 0.72rem;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.08em;
   padding: 0.35em 1.2em;
