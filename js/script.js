@@ -19,19 +19,17 @@
         const li = document.createElement('li');
         li.className = 'percurso__item' + (isCurrent ? ' is-current' : '');
 
-        const meta = document.createElement('div');
-        meta.className = 'percurso__meta';
-
         const num = document.createElement('span');
         num.className = 'percurso__num';
         num.setAttribute('aria-hidden', 'true');
         num.textContent = p.numero;
 
+        const content = document.createElement('div');
+        content.className = 'percurso__content';
+
         const month = document.createElement('span');
         month.className = 'percurso__month';
         month.textContent = p.mesLabel.toUpperCase();
-
-        meta.append(num, month);
 
         const title = document.createElement('div');
         title.className = 'percurso__title';
@@ -41,7 +39,8 @@
         desc.className = 'percurso__desc';
         desc.textContent = p.resumo;
 
-        li.append(meta, title, desc);
+        content.append(month, title, desc);
+        li.append(num, content);
 
         if (isCurrent) {
           const badgeCol = document.createElement('div');
