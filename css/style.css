@@ -747,34 +747,35 @@ h3 { font-size: 1.2rem; }
   background: var(--color-white);
   padding: var(--section-gap-mobile) 0;
 }
-.percurso h2 { font-weight: 400; max-width: 600px; margin-bottom: 1rem; }
+.percurso h2 { font-weight: 400; margin-bottom: 1rem; }
 .percurso__lead {
   font-family: var(--font-sans);
   font-size: 0.95rem;
   color: var(--color-text-muted);
-  max-width: 580px;
   margin-bottom: 2.5rem;
 }
 
-.percurso__list { border-top: 1px solid rgba(31,58,46,0.15); }
 .percurso__item {
   display: grid;
-  grid-template-columns: 3rem 1fr;
-  gap: 0.5rem 1rem;
+  grid-template-columns: 1fr auto;
+  column-gap: 1rem;
   align-items: start;
-  padding: 1.4rem 0;
-  border-bottom: 1px solid rgba(31,58,46,0.15);
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(224, 138, 46, 0.4);
   position: relative;
 }
+.percurso__meta {
+  grid-column: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
 .percurso__num {
-  font-family: var(--font-serif);
-  font-size: 2.2rem;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
   font-weight: 700;
-  color: var(--color-dark-orange);
+  color: var(--color-light-green);
   line-height: 1;
-  grid-row: 1 / -1;
-  padding-top: 0.1rem;
-  align-self: start;
 }
 .percurso__month {
   font-family: var(--font-sans);
@@ -782,23 +783,22 @@ h3 { font-size: 1.2rem; }
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-text-muted);
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  color: var(--color-light-green);
 }
+.percurso__item.is-current .percurso__num,
 .percurso__item.is-current .percurso__month { color: var(--color-dark-orange); }
 .percurso__title {
-  grid-column: 2;
+  grid-column: 1;
   font-family: var(--font-serif);
   font-size: 1.15rem;
   color: var(--color-dark-green);
-  margin-top: 0.15rem;
+  margin-top: 0.3rem;
 }
 .percurso__desc {
+  font-family: var(--font-sans);
   font-size: 0.9rem;
   color: var(--color-text-muted);
-  grid-column: 2;
+  grid-column: 1;
   margin-top: 0.2rem;
 }
 
@@ -810,24 +810,20 @@ h3 { font-size: 1.2rem; }
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  padding: 0.25em 0.75em;
+  padding: 0.35em 1.2em;
   border-radius: var(--radius-pill);
+}
+
+.percurso__badge-col {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  padding-top: 0.1rem;
 }
 
 @media (min-width: 1024px) {
   .percurso {
     padding: var(--section-gap-desktop) 0;
-  }
-  .percurso__item {
-    grid-template-columns: 4rem 1fr auto;
-    align-items: start;
-  }
-  .percurso__badge-col {
-    grid-column: 3;
-    grid-row: 1 / -1;
-    display: flex;
-    align-items: center;
-    padding-top: 0.15rem;
   }
 }
 
