@@ -231,9 +231,13 @@
         <!-- Info row -->
         <ul class="programa__info-list" aria-label="Informações do programa">
           <li>4 semanas</li>
+          <li class="programa__info-dot" aria-hidden="true">•</li>
           <li>Segundas-feiras às 19h</li>
+          <li class="programa__info-dot" aria-hidden="true">•</li>
           <li>Vila Nova de Gaia</li>
+          <li class="programa__info-dot" aria-hidden="true">•</li>
           <li>6 participantes</li>
+          <li class="programa__info-dot" aria-hidden="true">•</li>
           <li>48€</li>
         </ul>
 
@@ -261,7 +265,6 @@
 
               <!-- Lesson cards -->
               <div class="lesson-cards-wrap">
-                <button class="lesson-cards-nav lesson-cards-nav--prev" aria-label="Ver aulas anteriores">&#8592;</button>
                 <div class="lesson-cards" role="list">
 
                   <article class="lesson-card" role="listitem">
@@ -321,7 +324,10 @@
                   </article>
 
                 </div><!-- /.lesson-cards -->
-                <button class="lesson-cards-nav lesson-cards-nav--next" aria-label="Ver próximas aulas">&#8594;</button>
+                <div class="lesson-cards-controls">
+                  <button class="lesson-cards-nav lesson-cards-nav--prev" aria-label="Ver aulas anteriores">&#8592;</button>
+                  <button class="lesson-cards-nav lesson-cards-nav--next" aria-label="Ver próximas aulas">&#8594;</button>
+                </div>
               </div><!-- /.lesson-cards-wrap -->
 
               <hr class="divider">

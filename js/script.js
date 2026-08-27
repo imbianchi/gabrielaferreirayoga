@@ -136,25 +136,40 @@
     const body    = progAccordion.querySelector('.accordion__body');
     const icon    = progAccordion.querySelector('.accordion__icon');
 
+    function openProgAccordion() {
+      trigger.setAttribute('aria-expanded', 'true');
+      body.style.overflow = 'hidden';
+      body.style.maxHeight = body.scrollHeight + 'px';
+      icon && (icon.textContent = '−');
+      body.addEventListener('transitionend', function onEnd() {
+        if (trigger.getAttribute('aria-expanded') === 'true') {
+          body.style.maxHeight = 'none';
+          // Allow the lesson-cards carousel to bleed past the section edge.
+          body.style.overflow = 'visible';
+        }
+        body.removeEventListener('transitionend', onEnd);
+      });
+    }
+
     trigger && trigger.addEventListener('click', function () {
       const isOpen = trigger.getAttribute('aria-expanded') === 'true';
       if (isOpen) {
         trigger.setAttribute('aria-expanded', 'false');
+        body.style.overflow = 'hidden';
         body.style.maxHeight = '0';
         icon && (icon.textContent = '+');
       } else {
-        trigger.setAttribute('aria-expanded', 'true');
-        body.style.maxHeight = body.scrollHeight + 'px';
-        icon && (icon.textContent = '−');
-        // Allow max-height to auto once open so content can resize
-        body.addEventListener('transitionend', function onEnd() {
-          if (trigger.getAttribute('aria-expanded') === 'true') {
-            body.style.maxHeight = 'none';
-          }
-          body.removeEventListener('transitionend', onEnd);
-        });
+        openProgAccordion();
       }
     });
+
+    // Open by default on desktop; mobile stays closed until tapped.
+    if (window.innerWidth >= 1024) {
+      trigger.setAttribute('aria-expanded', 'true');
+      body.style.maxHeight = 'none';
+      body.style.overflow = 'visible';
+      icon && (icon.textContent = '−');
+    }
   }
 
   /* ── FAQ accordion (single-open) ─────────────────────── */
@@ -232,6 +247,13 @@
     btnNext.addEventListener('click', function () {
       cardRow.scrollBy({ left: getCardWidth(), behavior: 'smooth' });
     });
+
+    // Prev arrow only appears once the row has scrolled away from the start.
+    function updateCardNav() {
+      btnPrev.classList.toggle('is-visible', cardRow.scrollLeft > 8);
+    }
+    cardRow.addEventListener('scroll', updateCardNav, { passive: true });
+    updateCardNav();
   }
 
 })();
