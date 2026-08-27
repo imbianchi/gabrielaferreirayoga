@@ -9,7 +9,11 @@
   /* ── Programa do mês / percurso (data-driven, see programas.js) ── */
   if (window.PROGRAMAS && window.PROGRAMAS.length) {
     const currentMonth = new Date().getMonth() + 1;
-    const current = window.PROGRAMAS.find(function (p) { return p.mes === currentMonth; });
+    const firstMonth = Math.min.apply(null, window.PROGRAMAS.map(function (p) { return p.mes; }));
+    // Before the season starts, show the first program as available already
+    // (e.g. sign-ups open in August for the September program).
+    const current = window.PROGRAMAS.find(function (p) { return p.mes === currentMonth; })
+      || (currentMonth < firstMonth ? window.PROGRAMAS[0] : undefined);
 
     const list = document.getElementById('percurso-list');
     if (list) {
