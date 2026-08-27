@@ -236,20 +236,25 @@
       const gap   = parseFloat(style.gap) || 16;
       return firstCard.offsetWidth + gap;
     }
-    // Only one arrow shows at a time: next by default, swaps to prev once clicked.
-    btnNext.classList.add('is-visible');
-    btnPrev.classList.remove('is-visible');
+    // Each arrow reflects whether there's actually more to scroll to on
+    // that side — both show at once in the middle when there are enough
+    // slides, only one shows at the start/end.
+    function updateCardNav() {
+      const maxScroll = cardRow.scrollWidth - cardRow.clientWidth;
+      btnPrev.classList.toggle('is-visible', cardRow.scrollLeft > 8);
+      btnNext.classList.toggle('is-visible', cardRow.scrollLeft < maxScroll - 8);
+    }
 
     btnNext.addEventListener('click', function () {
       cardRow.scrollBy({ left: getCardWidth(), behavior: 'smooth' });
-      btnNext.classList.remove('is-visible');
-      btnPrev.classList.add('is-visible');
     });
     btnPrev.addEventListener('click', function () {
       cardRow.scrollBy({ left: -getCardWidth(), behavior: 'smooth' });
-      btnPrev.classList.remove('is-visible');
-      btnNext.classList.add('is-visible');
     });
+
+    cardRow.addEventListener('scroll', updateCardNav, { passive: true });
+    window.addEventListener('resize', updateCardNav);
+    updateCardNav();
   }
 
 })();
