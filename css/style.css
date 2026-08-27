@@ -623,34 +623,27 @@ h3 { font-size: 1.2rem; }
   line-height: 1.4;
 }
 
-/* Lesson cards scroll nav buttons (desktop) — simple, minimal, below the row */
+/* Lesson cards scroll nav buttons (desktop) — simple, minimal, below the first slide */
 .lesson-cards-wrap { position: relative; }
 .lesson-cards-controls {
   display: flex;
-  justify-content: flex-end;
-  gap: 0.5rem;
+  justify-content: flex-start;
+  margin-top: 0.75rem;
 }
 .lesson-cards-nav {
   display: none;
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  border: 1px solid rgba(31, 58, 46, 0.25);
+  border: none;
   background: none;
   box-shadow: none;
   align-items: center;
   justify-content: center;
-  color: var(--color-dark-green);
-  font-size: 1.1rem;
-  visibility: hidden;
-  transition: background 0.15s, border-color 0.15s;
+  color: var(--color-light-orange);
+  font-size: 1.3rem;
+  transition: opacity 0.15s;
 }
-.lesson-cards-nav--next { visibility: visible; }
-.lesson-cards-nav.is-visible { visibility: visible; }
-.lesson-cards-nav:hover {
-  background: rgba(31, 58, 46, 0.06);
-  border-color: var(--color-dark-green);
-}
+.lesson-cards-nav:hover { opacity: 0.7; }
 
 .accordion__inner-eyebrow { margin-top: 1rem; }
 .accordion__inner-eyebrow + p { margin-top: 0.75rem; }
@@ -664,10 +657,10 @@ h3 { font-size: 1.2rem; }
     width: calc(100vw - max(0px, (100vw - var(--container-max)) / 2) - var(--container-pad));
   }
   .lesson-card {
-    flex: 0 0 340px;
-    aspect-ratio: 3 / 2;
+    flex: 0 0 380px;
+    aspect-ratio: 3 / 2.2;
   }
-  .lesson-cards-nav { display: flex; }
+  .lesson-cards-nav.is-visible { display: flex; }
 
   .accordion__trigger { padding: 0.35rem 0 1rem; }
   .accordion__trigger-label { font-size: 24px; }

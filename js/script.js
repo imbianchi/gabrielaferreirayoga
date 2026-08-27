@@ -241,19 +241,20 @@
       const gap   = parseFloat(style.gap) || 16;
       return firstCard.offsetWidth + gap;
     }
-    btnPrev.addEventListener('click', function () {
-      cardRow.scrollBy({ left: -getCardWidth(), behavior: 'smooth' });
-    });
+    // Only one arrow shows at a time: next by default, swaps to prev once clicked.
+    btnNext.classList.add('is-visible');
+    btnPrev.classList.remove('is-visible');
+
     btnNext.addEventListener('click', function () {
       cardRow.scrollBy({ left: getCardWidth(), behavior: 'smooth' });
+      btnNext.classList.remove('is-visible');
+      btnPrev.classList.add('is-visible');
     });
-
-    // Prev arrow only appears once the row has scrolled away from the start.
-    function updateCardNav() {
-      btnPrev.classList.toggle('is-visible', cardRow.scrollLeft > 8);
-    }
-    cardRow.addEventListener('scroll', updateCardNav, { passive: true });
-    updateCardNav();
+    btnPrev.addEventListener('click', function () {
+      cardRow.scrollBy({ left: -getCardWidth(), behavior: 'smooth' });
+      btnPrev.classList.remove('is-visible');
+      btnNext.classList.add('is-visible');
+    });
   }
 
 })();
