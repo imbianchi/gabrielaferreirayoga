@@ -138,14 +138,11 @@
 
     function openProgAccordion() {
       trigger.setAttribute('aria-expanded', 'true');
-      body.style.overflow = 'hidden';
       body.style.maxHeight = body.scrollHeight + 'px';
       icon && (icon.textContent = '−');
       body.addEventListener('transitionend', function onEnd() {
         if (trigger.getAttribute('aria-expanded') === 'true') {
           body.style.maxHeight = 'none';
-          // Allow the lesson-cards carousel to bleed past the section edge.
-          body.style.overflow = 'visible';
         }
         body.removeEventListener('transitionend', onEnd);
       });
@@ -155,7 +152,6 @@
       const isOpen = trigger.getAttribute('aria-expanded') === 'true';
       if (isOpen) {
         trigger.setAttribute('aria-expanded', 'false');
-        body.style.overflow = 'hidden';
         body.style.maxHeight = '0';
         icon && (icon.textContent = '+');
       } else {
@@ -167,7 +163,6 @@
     if (window.innerWidth >= 1024) {
       trigger.setAttribute('aria-expanded', 'true');
       body.style.maxHeight = 'none';
-      body.style.overflow = 'visible';
       icon && (icon.textContent = '−');
     }
   }
