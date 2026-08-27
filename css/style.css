@@ -660,7 +660,7 @@ h3 { font-size: 1.2rem; }
   }
   .lesson-cards {
     padding-bottom: 0;
-    margin-bottom: 25px;
+    margin-bottom: 5px;
   }
   .lesson-cards-nav.is-visible { display: flex; }
 
