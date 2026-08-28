@@ -1,0 +1,258 @@
+/* ============================================================
+   HEADER / NAV
+   ============================================================ */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 0.75rem var(--container-pad);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  /* Pill-shaped semi-transparent bar */
+  background: rgba(31, 58, 46, 0.4);
+  backdrop-filter: blur(8px) saturate(180%);
+  -webkit-backdrop-filter: blur(8px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  border-radius: 0 0 var(--radius-pill) var(--radius-pill);
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Green glass once user scrolls past hero — same blur, tinted background */
+.site-header.scrolled {
+  background: rgba(31, 58, 46, 0.68);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+/* Logo lockup */
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.logo__img {
+  height: 40px;
+  width: auto;
+}
+
+/* Desktop nav links */
+.nav__links {
+  display: none;
+}
+
+/* Desktop CTA */
+.nav__cta-desktop {
+  display: none;
+}
+
+/* Mobile hamburger */
+.nav__hamburger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--color-grey);
+  border-radius: 50%;
+}
+
+/* Mobile WhatsApp icon-only button */
+.nav__wa-mobile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--color-light-green);
+  border-radius: 50%;
+  color: var(--color-white);
+  flex-shrink: 0;
+}
+.nav__wa-mobile:hover { filter: brightness(0.88); }
+
+/* Mobile menu overlay / panel */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+}
+.mobile-menu__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.mobile-menu__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(360px, 90vw);
+  height: 100%;
+  background: var(--color-grey);
+  padding: 1.5rem var(--container-pad) 2rem;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+}
+.mobile-menu.is-open {
+  pointer-events: all;
+}
+.mobile-menu.is-open .mobile-menu__backdrop { opacity: 1; }
+.mobile-menu.is-open .mobile-menu__panel    { transform: translateX(0); }
+
+.mobile-menu__close {
+  align-self: flex-end;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-dark-green);
+  margin-bottom: 1.5rem;
+}
+.mobile-menu__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  margin-bottom: 1.8rem;
+}
+.mobile-menu__nav a {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--color-dark-green);
+}
+.mobile-menu__nav a:hover { color: var(--color-light-green); }
+
+.mobile-menu__cta {
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.mobile-menu__divider {
+  border: none;
+  border-top: 1px solid var(--color-divider);
+  margin-bottom: 1.2rem;
+}
+.mobile-menu__instagram {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+.mobile-menu__instagram:hover { color: var(--color-dark-green); }
+
+/* Desktop ≥1024px nav overrides */
+@media (min-width: 1024px) {
+  .nav__hamburger,
+  .nav__wa-mobile    { display: none; }
+
+  .nav__links {
+    display: flex;
+    gap: 2.75rem;
+    list-style: none;
+    align-items: center;
+  }
+  .nav__links a {
+    position: relative;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-grey);
+    text-decoration: none;
+    transition: color 0.25s ease;
+  }
+  .nav__links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 2px;
+    background: var(--color-grey);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .nav__links a:hover,
+  .nav__links a.active {
+    color: var(--color-grey);
+  }
+  .nav__links a:hover::after,
+  .nav__links a.active::after {
+    transform: scaleX(1);
+  }
+
+  .nav__cta-desktop { display: flex; }
+  .hero__cta { display: inline-flex; }
+  .nav__cta-desktop,
+  .hero__cta {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 40px;
+    font-size: 16px;
+    border: 1px solid transparent;
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+  }
+  .nav__cta-desktop .icon:first-child,
+  .hero__cta .icon:first-child {
+    width: 22px;
+    height: 22px;
+  }
+  .hero__cta:hover {
+    transform: none;
+    box-shadow: none;
+    filter: none;
+    background: var(--color-dark-green);
+    color: var(--color-grey);
+  }
+
+  /* WhatsApp header button — hover treatment depends on header context */
+  .site-header:not(.scrolled) .nav__cta-desktop:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    filter: none;
+    background: var(--color-white);
+    color: var(--color-dark-green);
+    border-color: rgba(255, 255, 255, 0.9);
+  }
+  .site-header.scrolled .nav__cta-desktop:hover {
+    transform: none;
+    box-shadow: none;
+    filter: none;
+    background: var(--color-white);
+    color: var(--color-dark-green);
+    border-color: var(--color-dark-green);
+  }
+
+  /* Floating glass bar over the hero; switches to solid green
+     once scrolled past it onto the white section below (contrast). */
+  .site-header {
+    top: 20px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: 90%;
+    padding: 0.4rem 17px 0.4rem 1.25rem;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(8px) saturate(180%);
+    -webkit-backdrop-filter: blur(8px) saturate(180%);
+  }
+  .site-header.scrolled {
+    background: rgba(31, 58, 46, 0.68);
+  }
+  .logo__img { height: 52px; }
+}

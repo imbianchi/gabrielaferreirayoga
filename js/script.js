@@ -3,108 +3,22 @@
    Vanilla JavaScript, no dependencies
    ============================================================ */
 
+import './hero.js';
+import './header.js';
+import './currentProgram.js';
+import './whatItIs.js';
+import './programs.js';
+import './whoAmI.js';
+import './faq.js';
+import './contact.js';
+import './footer.js';
+
 (function () {
   'use strict';
 
-  /* ── Programa do mês / percurso (data-driven, see programas.js) ── */
-  if (window.PROGRAMAS && window.PROGRAMAS.length) {
-    const currentMonth = new Date().getMonth() + 1;
-    const firstMonth = Math.min.apply(null, window.PROGRAMAS.map(function (p) { return p.mes; }));
-    // Before the season starts, show the first program as available already
-    // (e.g. sign-ups open in August for the September program).
-    const current = window.PROGRAMAS.find(function (p) { return p.mes === currentMonth; })
-      || (currentMonth < firstMonth ? window.PROGRAMAS[0] : undefined);
-
-    const list = document.getElementById('percurso-list');
-    if (list) {
-      window.PROGRAMAS.forEach(function (p) {
-        const isCurrent = !!current && p.mes === current.mes;
-
-        const li = document.createElement('li');
-        li.className = 'percurso__item' + (isCurrent ? ' is-current' : '');
-
-        const num = document.createElement('span');
-        num.className = 'percurso__num';
-        num.setAttribute('aria-hidden', 'true');
-        num.textContent = p.numero;
-
-        const content = document.createElement('div');
-        content.className = 'percurso__content';
-
-        const month = document.createElement('span');
-        month.className = 'percurso__month';
-        month.textContent = p.mesLabel.toUpperCase();
-
-        const title = document.createElement('div');
-        title.className = 'percurso__title';
-        title.textContent = p.titulo;
-
-        const desc = document.createElement('p');
-        desc.className = 'percurso__desc';
-        desc.textContent = p.resumo;
-
-        content.append(month, title, desc);
-        li.append(num, content);
-
-        if (isCurrent) {
-          const badgeCol = document.createElement('div');
-          badgeCol.className = 'percurso__badge-col';
-          const badge = document.createElement('span');
-          badge.className = 'badge-disponivel';
-          badge.textContent = 'Disponível';
-          badgeCol.appendChild(badge);
-          li.appendChild(badgeCol);
-        }
-
-        list.appendChild(li);
-      });
-    }
-
-    if (current) {
-      const eyebrow = document.getElementById('programa-eyebrow');
-      const heading = document.getElementById('programa-heading');
-      if (eyebrow) eyebrow.textContent = 'PROGRAMA DO MÊS · ' + current.mesLabel.toUpperCase();
-      if (heading) heading.textContent = current.titulo;
-    }
-  }
-
-  /* ── Sticky header ────────────────────────────────────── */
-  const header = document.querySelector('.site-header');
-  const hero   = document.querySelector('.hero');
-
-  function updateHeaderBg() {
-    if (!header || !hero) return;
-    const heroBottom = hero.getBoundingClientRect().bottom;
-    if (heroBottom <= 0) {
-      header.classList.add('scrolled');
-    } else {
-      header.classList.remove('scrolled');
-    }
-  }
-  window.addEventListener('scroll', updateHeaderBg, { passive: true });
-  updateHeaderBg();
-
-  /* ── Scrollspy: highlight current section in the nav ────── */
-  const navLinks = document.querySelectorAll('.nav__links a');
-  const spySections = Array.from(navLinks)
-    .map((a) => document.querySelector(a.getAttribute('href')))
-    .filter(Boolean);
-
-  if (spySections.length && 'IntersectionObserver' in window) {
-    const spy = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const link = document.querySelector(`.nav__links a[href="#${entry.target.id}"]`);
-          if (!link) return;
-          navLinks.forEach((a) => a.classList.remove('active'));
-          link.classList.add('active');
-        });
-      },
-      { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
-    );
-    spySections.forEach((section) => spy.observe(section));
-  }
+  /* ── Footer year ──────────────────────────────────────── */
+  const footerYear = document.getElementById('footer-year');
+  if (footerYear) footerYear.textContent = new Date().getFullYear();
 
   /* ── Smooth scroll ────────────────────────────────────── */
   function smoothScrollTo(targetId) {
@@ -127,11 +41,11 @@
   });
 
   /* ── Mobile menu ──────────────────────────────────────── */
-  const mobileMenu   = document.querySelector('.mobile-menu');
+  const mobileMenu = document.querySelector('.mobile-menu');
   const hamburgerBtn = document.querySelector('.nav__hamburger');
-  const closeBtn     = document.querySelector('.mobile-menu__close');
-  const backdrop     = document.querySelector('.mobile-menu__backdrop');
-  const panel        = document.querySelector('.mobile-menu__panel');
+  const closeBtn = document.querySelector('.mobile-menu__close');
+  const backdrop = document.querySelector('.mobile-menu__backdrop');
+  const panel = document.querySelector('.mobile-menu__panel');
 
   const focusableSelectors =
     'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -166,7 +80,7 @@
     const focusable = Array.from(panel.querySelectorAll(focusableSelectors));
     if (focusable.length === 0) return;
     const first = focusable[0];
-    const last  = focusable[focusable.length - 1];
+    const last = focusable[focusable.length - 1];
 
     if (e.shiftKey) {
       if (document.activeElement === first) {
@@ -182,8 +96,8 @@
   }
 
   hamburgerBtn && hamburgerBtn.addEventListener('click', openMenu);
-  closeBtn     && closeBtn.addEventListener('click', closeMenu);
-  backdrop     && backdrop.addEventListener('click', closeMenu);
+  closeBtn && closeBtn.addEventListener('click', closeMenu);
+  backdrop && backdrop.addEventListener('click', closeMenu);
 
   // Close menu when a nav link is clicked
   const menuLinks = document.querySelectorAll('.mobile-menu__nav a, .mobile-menu__cta');
@@ -191,12 +105,12 @@
     link.addEventListener('click', closeMenu);
   });
 
-  /* ── Program accordion ("Saber mais") ─────────────────── */
-  const progAccordion = document.querySelector('[data-accordion="programa"]');
+  /* ── Program accordion ("Learn more") ─────────────────── */
+  const progAccordion = document.querySelector('[data-accordion="program"]');
   if (progAccordion) {
     const trigger = progAccordion.querySelector('.accordion__trigger');
-    const body    = progAccordion.querySelector('.accordion__body');
-    const icon    = progAccordion.querySelector('.accordion__icon');
+    const body = progAccordion.querySelector('.accordion__body');
+    const icon = progAccordion.querySelector('.accordion__icon');
 
     function openProgAccordion() {
       trigger.setAttribute('aria-expanded', 'true');
@@ -234,8 +148,8 @@
 
   function openFaqItem(item) {
     const trigger = item.querySelector('.faq-item__trigger');
-    const body    = item.querySelector('.faq-item__body');
-    const icon    = item.querySelector('.faq-item__icon');
+    const body = item.querySelector('.faq-item__body');
+    const icon = item.querySelector('.faq-item__icon');
     trigger && trigger.setAttribute('aria-expanded', 'true');
     icon && (icon.textContent = '−');
     if (body) {
@@ -251,8 +165,8 @@
 
   function closeFaqItem(item) {
     const trigger = item.querySelector('.faq-item__trigger');
-    const body    = item.querySelector('.faq-item__body');
-    const icon    = item.querySelector('.faq-item__icon');
+    const body = item.querySelector('.faq-item__body');
+    const icon = item.querySelector('.faq-item__icon');
     // Set explicit height before collapsing so transition works
     if (body && body.style.maxHeight === 'none') {
       body.style.maxHeight = body.scrollHeight + 'px';
@@ -286,16 +200,16 @@
   }
 
   /* ── Lesson cards prev/next ───────────────────────────── */
-  const cardRow  = document.querySelector('.lesson-cards');
-  const btnPrev  = document.querySelector('.lesson-cards-nav--prev');
-  const btnNext  = document.querySelector('.lesson-cards-nav--next');
+  const cardRow = document.querySelector('.lesson-cards');
+  const btnPrev = document.querySelector('.lesson-cards-nav--prev');
+  const btnNext = document.querySelector('.lesson-cards-nav--next');
 
   if (cardRow && btnPrev && btnNext) {
     function getCardWidth() {
       const firstCard = cardRow.querySelector('.lesson-card');
       if (!firstCard) return 300;
       const style = window.getComputedStyle(cardRow);
-      const gap   = parseFloat(style.gap) || 16;
+      const gap = parseFloat(style.gap) || 16;
       return firstCard.offsetWidth + gap;
     }
     // Each arrow reflects whether there's actually more to scroll to on

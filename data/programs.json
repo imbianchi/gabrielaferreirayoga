@@ -1,0 +1,29 @@
+{
+    "sectionTitle": "Um percurso que continua",
+    "mainTitle": "Quatro programas",
+    "subTitle": "Quatro competências para levar para a vida.",
+    "wordToHighlight": "para a vida",
+    "textSummary": "Quatro programas de quatro semanas cada, que podem ser frequentados individualmente ou como um percurso contínuo de setembro a dezembro.",
+    "programs": [
+        {
+            "month": 9,
+            "title": "Sistema Nervoso",
+            "textSummary": "Reconhecer e regular estados de tensão."
+        },
+        {
+            "month": 10,
+            "title": "Sistema Imunitário",
+            "textSummary": "Criar condições que apoiem a capacidade natural de recuperação do organismo."
+        },
+        {
+            "month": 11,
+            "title": "Atenção e Clareza",
+            "textSummary": "Desenvolver uma mente mais estável, atenta e focada."
+        },
+        {
+            "month": 12,
+            "title": "Descanso e Recuperação",
+            "textSummary": "Aprender a recuperar, em vez de viver continuamente em esforço."
+        }
+    ]
+}

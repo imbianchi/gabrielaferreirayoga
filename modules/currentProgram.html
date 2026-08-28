@@ -1,0 +1,67 @@
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 2 — MONTHLY PROGRAM
+═══════════════════════════════════════════════════════ -->
+<section class="program" id="program" aria-labelledby="program-heading">
+  <div class="container">
+
+    <div class="program__header">
+      <span class="eyebrow eyebrow--dash" id="program-eyebrow"></span>
+      <h2 id="program-heading"></h2>
+    </div>
+
+    <div class="program__intro">
+      <p></p>
+      <span class="program__note"></span>
+    </div>
+
+    <!-- Info row -->
+    <ul class="program__info-list" aria-label="Program information"></ul>
+
+    <hr class="divider">
+
+    <!-- Accordion: Learn more -->
+    <div data-accordion="program">
+      <button
+        class="accordion__trigger"
+        aria-expanded="false"
+        aria-controls="program-accordion-body"
+        id="program-accordion-trigger">
+        <span class="accordion__trigger-label"></span>
+        <span class="accordion__icon" aria-hidden="true">+</span>
+      </button>
+
+      <div
+        id="program-accordion-body"
+        class="accordion__body"
+        role="region"
+        aria-labelledby="program-accordion-trigger">
+        <div class="accordion__body-inner">
+
+          <p></p>
+
+          <!-- Lesson cards -->
+          <div class="lesson-cards-wrap">
+            <div class="lesson-cards" role="list"></div>
+            <div class="lesson-cards-controls">
+              <button class="lesson-cards-nav lesson-cards-nav--prev" aria-label="View previous lessons">&#8592;</button>
+              <button class="lesson-cards-nav lesson-cards-nav--next" aria-label="View next lessons">&#8594;</button>
+            </div>
+          </div>
+
+          <span class="eyebrow accordion__inner-eyebrow"></span>
+          <p></p>
+
+          <hr class="divider accordion__inner-divider">
+
+          <a
+            class="btn btn--sage accordion__inner-btn"
+            target="_blank"
+            rel="noopener noreferrer">
+          </a>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

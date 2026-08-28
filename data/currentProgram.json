@@ -1,0 +1,46 @@
+{
+    "sectionTitle": "Programa do Mês",
+    "month": 9,
+    "mainTitle": "Sistema Nervoso",
+    "textSummary": "Uma sequência de quatro práticas para aprender a reconhecer estados de tensão e desenvolver ferramentas para regressar ao equilíbrio.",
+    "textSummaryExtended": "Não é necessária experiência prévia em yoga.",
+    "bulletInfo": [
+        "4 semanas",
+        "Segundas-feiras às 19h",
+        "Vila Nova de Gaia",
+        "6 participantes",
+        "48€"
+    ],
+    "secondTitle": "Saber mais sobre o programa",
+    "secondTextSummary": "Ao longo de quatro semanas vamos trabalhar a relação entre corpo, respiração e atenção, aprendendo a reconhecer mais cedo os sinais de tensão e a desenvolver ferramentas que possam ser utilizadas também fora da aula.",
+    "slider": {
+        "title": "Como funciona uma aula",
+        "textSummary": "Cada aula tem até 1h15 e pode incluir asanas e movimento, respiração, meditação, mantras e relaxamento. No final, haverá cerca de 15 minutos para chá e partilha, para quem quiser permanecer.",
+        "ctaButton": {
+            "text": "Quero inscrever-me",
+            "link": "https://wa.me/351914992464"
+        },
+        "slides": [
+            {
+                "title": "Reconhecer a tensão",
+                "description": "Identificar os sinais do corpo e da mente quando começamos a entrar em sobrecarga.",
+                "image": "reconhecer_tensao"
+            },
+            {
+                "title": "Respirar conscientemente",
+                "description": "Explorar a respiração como ferramenta de atenção e autoregulação.",
+                "image": "respirar_conscientemente"
+            },
+            {
+                "title": "Recuperar presença",
+                "description": "Regressar ao corpo e ao momento presente quando a mente está acelerada ou dispersa.",
+                "image": "recuperar_presenca"
+            },
+            {
+                "title": "Regressar ao equilíbrio",
+                "description": "Integrar as ferramentas do programa e aprender a levá-las para o quotidiano.",
+                "image": "regressar_ao_equilibrio"
+            }
+        ]
+    }
+}

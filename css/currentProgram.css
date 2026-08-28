@@ -1,0 +1,260 @@
+
+/* ============================================================
+   SECTION 2 — MONTHLY PROGRAM
+   ============================================================ */
+.program {
+  background: var(--color-white);
+  padding: var(--section-gap-mobile) 0;
+}
+
+.program__header { margin-bottom: 1.5rem; }
+
+.program__header h2 { font-weight: 400; }
+
+.program__intro p {
+  font-family: var(--font-sans);
+  color: var(--color-text-muted);
+  margin-top: 0.75rem;
+}
+
+.program__note {
+  display: block;
+  font-family: var(--font-sans);
+  color: var(--color-text-muted);
+  margin-top: 0.5rem;
+}
+
+.program__info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 1.5rem 0;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding-left: 1.1rem;
+  list-style: disc;
+  color: var(--color-dark-green);
+}
+
+.program__info-list li { color: var(--color-dark-green); }
+
+.program__info-dot { display: none; }
+
+@media (min-width: 1024px) {
+  .program__info-list {
+    width: 100%;
+    flex-direction: row;
+    list-style: none;
+    padding-left: 0;
+    gap: 0;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+ 
+  .program__info-dot {
+    display: block;
+    color: var(--color-dark-green);
+  }
+ 
+  .program__info-list + .divider {
+    border-top-color: var(--color-divider);
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Accordion */
+.accordion {
+  border-top: 1px solid var(--color-divider);
+}
+
+.accordion__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  gap: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.accordion__trigger-label {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--color-dark-green);
+}
+
+.accordion__icon {
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--color-dark-orange);
+  line-height: 1;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+  width: 1.4rem;
+  text-align: center;
+}
+
+.accordion__body {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s ease;
+}
+
+.accordion__body-inner {
+  padding: 0.5rem 0 1.5rem;
+  color: var(--color-text-muted);
+}
+
+.accordion__body-inner > p { margin-bottom: 1.2rem; }
+
+/* Lesson cards row — horizontal scroll carousel */
+.lesson-cards {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.5rem;
+  margin: 1.5rem 0;
+  /* Hide scrollbar */
+  scrollbar-width: none;
+}
+
+.lesson-cards::-webkit-scrollbar { display: none; }
+
+.lesson-card {
+  flex: 0 0 85vw;
+  max-width: 340px;
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  scroll-snap-align: start;
+  position: relative;
+  aspect-ratio: 5/7;
+  background: var(--color-dark-green);
+}
+
+.lesson-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.lesson-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15,35,20,0.92) 0%, rgba(15,35,20,0.4) 55%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.2rem;
+}
+
+.lesson-card__eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-dark-orange);
+  margin-bottom: 0.3rem;
+}
+
+.lesson-card__title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--color-white);
+  margin-bottom: 0.4rem;
+  line-height: 1.25;
+}
+
+.lesson-card__desc {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.4;
+}
+
+/* Lesson cards scroll nav buttons (desktop) — simple, minimal, below the first slide */
+.lesson-cards-wrap { position: relative; }
+.lesson-cards-controls {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 0;
+}
+
+.lesson-cards-nav {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: none;
+  box-shadow: none;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-light-orange);
+  font-size: 2.2rem;
+  font-weight: 700;
+  transition: opacity 0.15s;
+}
+
+.lesson-cards-nav:hover { opacity: 0.7; }
+
+.accordion__inner-eyebrow { margin-top: 1rem; }
+
+.accordion__inner-eyebrow + p { margin-top: 0.75rem; }
+
+.accordion__inner-btn { margin-top: 1.2rem; }
+
+@media (min-width: 1024px) {
+  .program {
+    padding: var(--section-gap-mobile) 0 var(--section-gap-desktop);
+  }
+
+  .lesson-card {
+    flex: 0 0 330px;
+    aspect-ratio: 3 / 2.2;
+  }
+  
+  .lesson-cards {
+    padding-bottom: 0;
+    margin-bottom: 5px;
+  }
+
+  .lesson-cards-nav.is-visible { display: flex; }
+
+  .accordion__trigger { padding: 0.35rem 0 1rem; }
+
+  .accordion__trigger-label { font-size: 24px; }
+
+  .accordion__body-inner > p {
+    font-family: var(--font-sans);
+    font-size: 16px;
+  }
+
+  .accordion__inner-divider { border-top-color: var(--color-divider); }
+
+  .accordion__inner-btn {
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 40px;
+    font-size: 16px;
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  }
+  
+  .accordion__inner-btn:hover {
+    transform: none;
+    box-shadow: none;
+    filter: none;
+    background: var(--color-grey);
+    color: var(--color-dark-green);
+    border-color: var(--color-dark-green);
+  }
+}
