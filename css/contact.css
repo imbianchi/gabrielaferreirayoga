@@ -1,0 +1,116 @@
+
+/* ============================================================
+   SECTION 7 — CLOSING CTA BANNER
+   ============================================================ */
+.cta-banner-section {
+  padding: 1rem 0 2.5rem;
+  display: flex;
+  justify-content: center;
+  background: var(--color-white);
+}
+
+.cta-banner {
+  width: 100%;
+  border-radius: var(--radius-banner);
+  overflow: hidden;
+  position: relative;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.cta-banner__bg {
+  position: absolute;
+  inset: 0;
+}
+
+.cta-banner__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.cta-banner__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(20,45,30,0.82) 0%, rgba(20,45,30,0.65) 100%);
+}
+
+.cta-banner__content {
+  position: relative;
+  z-index: 1;
+  width: 90%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  text-align: left;
+  padding: 1.75rem 0;
+}
+
+.cta-banner__content .eyebrow {
+  color: var(--color-dark-grey);
+}
+
+.cta-banner__content .eyebrow--dash::after {
+  background: var(--color-dark-grey);
+}
+
+.cta-banner__content h2 {
+  font-weight: 400;
+  font-size: 32px;
+  color: var(--color-white);
+  margin-bottom: 0.5rem;
+}
+
+.cta-banner__content p {
+  display: none;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  color: rgba(255,255,255,0.88);
+  margin-bottom: 1.2rem;
+  width: 100%;
+}
+
+.cta-banner__btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: 1.5rem;
+  border-radius: 40px;
+  font-size: 16px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cta-banner__btn:hover {
+  transform: none;
+  filter: none;
+  background: var(--color-light-green);
+  color: var(--color-white);
+  box-shadow: inset 0 0 0 1px var(--color-white);
+}
+
+/* Tablet ≥768px — paragraph comes back, card keeps the full-bleed mobile shape */
+@media (min-width: 768px) {
+  .cta-banner__content p { display: block; }
+}
+
+@media (min-width: 1024px) {
+  .cta-banner-section { padding: 1.5rem var(--container-pad) 3rem; }
+  .cta-banner {
+    width: 95%;
+    min-height: 240px;
+  }
+  .cta-banner__content {
+    width: 100%;
+    padding: 2.5rem var(--container-pad);
+  }
+  .cta-banner__content h2 { font-size: 48px; }
+  .cta-banner__btn {
+    width: auto;
+    justify-content: flex-start;
+    margin-top: 0;
+  }
+}

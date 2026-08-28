@@ -1,0 +1,49 @@
+/* ============================================================
+   SECTION 3 — WHAT IS KUNDALINI YOGA
+   ============================================================ */
+.kundalini {
+  background: var(--color-white);
+  overflow: hidden;
+}
+/* Two column row, full bleed */
+.kundalini__row {
+  display: flex;
+  flex-direction: column;
+}
+.kundalini__photo-col {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+.kundalini__photo-col img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.kundalini__text-col {
+  background: var(--color-grey);
+  padding: var(--section-gap-mobile) var(--container-pad);
+}
+.kundalini__text-col h2 { font-weight: 400; }
+.kundalini__text-col p {
+  font-family: var(--font-sans);
+  color: var(--color-dark-green);
+  margin-top: 1rem;
+  max-width: 520px;
+}
+
+@media (min-width: 1024px) {
+  .kundalini__row {
+    flex-direction: row;
+    align-items: center;
+  }
+  .kundalini__photo-col {
+    width: 50%;
+    aspect-ratio: 3 / 2;
+    flex-shrink: 0;
+  }
+  .kundalini__text-col {
+    width: 50%;
+    padding: 7rem calc(max(0px, (100vw - var(--container-max)) / 2) + var(--container-pad)) 7rem clamp(2rem, 5vw, 5rem);
+  }
+}

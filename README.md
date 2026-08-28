@@ -4,11 +4,27 @@ Static one-page website for **Gabriela Ferreira Yoga** — Kundalini Yoga classe
 
 ## Tech stack
 
-Plain HTML5 + CSS3 + vanilla JavaScript. No frameworks, no build tools, no npm, no dependencies.
+Plain HTML5 + CSS3 + vanilla JavaScript (ES modules). No frameworks, no build tools, no npm, no dependencies.
+
+## Structure
+
+```
+index.html      — page shell (SEO metadata + JSON-LD + mount points)
+css/style.css   — all styles (mobile-first, design-token driven)
+js/             — one ES module per section + script.js for behaviour
+modules/        — HTML fragments injected per section (fetch-based)
+data/           — content as JSON (single source of truth per section)
+assets/images/  — photos (webp)
+assets/svg/     — inline SVG assets
+robots.txt      — points to sitemap
+sitemap.xml     — canonical URL
+```
+
+Every section is loaded at runtime: `js/*.js` fetches the matching HTML fragment from `modules/`, imports the content from `data/`, and injects it into the mount point in `index.html`.
 
 ## How to run
 
-Open `index.html` directly in a browser, or serve the repo root as static files:
+The page relies on `fetch()`, so it must be served over HTTP (opening `index.html` directly will not work):
 
 ```bash
 # Python 3
@@ -22,27 +38,12 @@ Then visit `http://localhost:8080`.
 
 ## Deployment
 
-Deployed as a **GitHub Page** from the repository root (no build step required). Configure GitHub Pages to serve from the `main` branch, root directory.
+Served as a **GitHub Page** from the repository root (no build step). GitHub Pages must be configured to serve from the `main` branch, root directory.
 
-> **TODO:** Once the GitHub Pages URL is known, update the canonical URL in `index.html` and the URL in `sitemap.xml`.
+## Edit content
 
-## Files
+Content lives in `data/*.json` — one file per section (`hero.json`, `currentProgram.json`, `whatItIs.json`, `programs.json`, `whoAmI.json`, `faq.json`, `contact.json`, `footer.json`, `header.json`). Text, links (WhatsApp, Instagram) and prices are edited there, not in the HTML.
 
-```
-index.html          — single-page site
-css/style.css       — all styles (mobile-first, design-token driven)
-js/script.js        — vanilla JS (menu, accordions, smooth scroll, sticky header)
-images/             — placeholder assets (swap in real photos/icons as needed)
-robots.txt          — trivial robots file
-sitemap.xml         — trivial sitemap (one URL)
-```
+## SEO
 
-## Placeholders to replace
-
-- **WhatsApp number** — search for `351XXXXXXXXX` and `000 000 000` in `index.html` and replace with the real number.
-- **Canonical URL** — update `<link rel="canonical">` in `index.html` and `<loc>` in `sitemap.xml`.
-- **Images** — drop real photos into `/images/` using the exact filenames already referenced (`hero.jpg`, `kundalini.jpg`, `gabriela.jpg`, `contact-bg.jpg`, `lesson-01.jpg`–`lesson-04.jpg`, `og-cover.jpg`).
-- **Logo icon** — replace `/images/logo-icon.svg` with the real logomark (lotus/sun + seated figure silhouette).
-- **Favicon** — replace `/images/favicon.ico` and `/images/favicon.svg` with the real icon.
-
----
+Search metadata (title, description, Open Graph, Twitter) and structured data (LocalBusiness + hasOfferCatalog + FAQPage JSON-LD) are in the `<head>` of `index.html`. Keep prices in the catalog in sync with `data/currentProgram.json` and `data/faq.json`.

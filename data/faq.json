@@ -1,0 +1,27 @@
+{
+    "sectionTitle": "faq",
+    "mainTitle": "Perguntas frequentes",
+    "wordToHighlight": "frequentes",
+    "questions": [
+        {
+            "question": "Nunca fiz yoga. Posso participar?",
+            "answer": "Sim. Não é necessária experiência prévia. As práticas são explicadas e orientadas passo a passo."
+        },
+        {
+            "question": "Preciso ser flexível?",
+            "answer": "Não. A flexibilidade não é um requisito para começar a praticar yoga."
+        },
+        {
+            "question": "Nunca meditei nem utilizei mantras. Isso é um problema?",
+            "answer": "Não. Sempre que estes elementos fizerem parte da prática, serão explicados e orientados."
+        },
+        {
+            "question": "Posso participar apenas numa aula?",
+            "answer": "Sim, caso exista vaga disponível. O valor da aula avulsa é de 15€."
+        },
+        {
+            "question": "Como confirmo a inscrição?",
+            "answer": "Entra em contacto comigo através do WhatsApp. Envio-te o formulário com todas as informações necessárias para confirmar a inscrição."
+        }
+    ]
+}

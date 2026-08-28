@@ -1,0 +1,24 @@
+{
+    "menuItems": [
+        {
+            "label": "Programa do Mês",
+            "link": "#program"
+        },
+        {
+            "label": "O que é Kundalini Yoga",
+            "link": "#kundalini"
+        },
+        {
+            "label": "Quem Sou",
+            "link": "#about"
+        },
+        {
+            "label": "FAQ",
+            "link": "#faq"
+        }
+    ],
+    "ctaButton": {
+        "label": "Entra em Contacto",
+        "link": "https://wa.me/351914992464"
+    }
+}

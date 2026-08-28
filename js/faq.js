@@ -1,0 +1,112 @@
+import { PATHS, VERSION } from './globals.js';
+
+const faqHtml = await fetch(`${PATHS.modules}/faq.html?v=${VERSION}`).then(res => res.text());
+document.getElementById('faq').outerHTML = faqHtml;
+
+import faqJson from '../data/faq.json' with { type: 'json' };
+
+/**
+ * FAQ JavaScript
+ * Handle data from faq.json
+ */
+(function () {
+    'use strict';
+
+    const eyebrow = document.querySelector('.faq .eyebrow');
+    if (eyebrow) eyebrow.textContent = faqJson.sectionTitle;
+
+    const heading = document.getElementById('faq-heading');
+    if (heading && faqJson.mainTitle && faqJson.wordToHighlight) {
+        heading.innerHTML = faqJson.mainTitle.replace(
+            faqJson.wordToHighlight,
+            `<span class="italic-accent">${faqJson.wordToHighlight}</span>`
+        );
+    }
+
+    const accordion = document.querySelector('.faq-accordion');
+    if (accordion && faqJson.questions) {
+        accordion.innerHTML = faqJson.questions.map((item, index) => {
+            const n = index + 1;
+            return `
+                <div class="faq-item reveal" role="listitem">
+                    <button
+                        class="faq-item__trigger"
+                        aria-expanded="false"
+                        aria-controls="faq-${n}-body"
+                        id="faq-${n}-trigger">
+                        <span class="faq-item__question">${item.question}</span>
+                        <span class="faq-item__icon" aria-hidden="true">+</span>
+                    </button>
+                    <div id="faq-${n}-body" class="faq-item__body" role="region" aria-labelledby="faq-${n}-trigger">
+                        <div class="faq-item__body-inner">
+                            ${item.answer}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+})();
+
+/**
+ * FAQ JavaScript
+ * Accordion (single-open) behavior
+ */
+(function () {
+    'use strict';
+
+    const faqItems = document.querySelectorAll('.faq-item');
+
+    function openFaqItem(item) {
+        const trigger = item.querySelector('.faq-item__trigger');
+        const body = item.querySelector('.faq-item__body');
+        const icon = item.querySelector('.faq-item__icon');
+        trigger && trigger.setAttribute('aria-expanded', 'true');
+        icon && icon.classList.add('is-open');
+        if (body) {
+            body.style.maxHeight = body.scrollHeight + 'px';
+            body.addEventListener('transitionend', function onEnd() {
+                if (trigger && trigger.getAttribute('aria-expanded') === 'true') {
+                    body.style.maxHeight = 'none';
+                }
+                body.removeEventListener('transitionend', onEnd);
+            });
+        }
+    }
+
+    function closeFaqItem(item) {
+        const trigger = item.querySelector('.faq-item__trigger');
+        const body = item.querySelector('.faq-item__body');
+        const icon = item.querySelector('.faq-item__icon');
+        // Set explicit height before collapsing so transition works
+        if (body && body.style.maxHeight === 'none') {
+            body.style.maxHeight = body.scrollHeight + 'px';
+            // Force reflow
+            body.offsetHeight; // eslint-disable-line no-unused-expressions
+        }
+        trigger && trigger.setAttribute('aria-expanded', 'false');
+        icon && icon.classList.remove('is-open');
+        body && (body.style.maxHeight = '0');
+    }
+
+    faqItems.forEach(function (item) {
+        const trigger = item.querySelector('.faq-item__trigger');
+        trigger && trigger.addEventListener('click', function () {
+            const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+            // Close all
+            faqItems.forEach(function (other) {
+                if (other !== item) closeFaqItem(other);
+            });
+            if (isOpen) {
+                closeFaqItem(item);
+            } else {
+                openFaqItem(item);
+            }
+        });
+    });
+
+    // Open first FAQ item by default
+    if (faqItems.length > 0) {
+        openFaqItem(faqItems[0]);
+    }
+})();
