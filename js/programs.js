@@ -1,6 +1,6 @@
-import { PATHS } from './globals.js';
+import { PATHS, VERSION } from './globals.js';
 
-const programsHtml = await fetch(`${PATHS.modules}/programs.html`).then(res => res.text());
+const programsHtml = await fetch(`${PATHS.modules}/programs.html?v=${VERSION}`).then(res => res.text());
 document.getElementById('path').outerHTML = programsHtml;
 
 import programsJson from '../data/programs.json' with { type: 'json' };
@@ -43,7 +43,7 @@ import programsJson from '../data/programs.json' with { type: 'json' };
         const monthLabel = new Date(2000, program.month - 1).toLocaleDateString('pt-PT', { month: 'long' });
 
         const li = document.createElement('li');
-        li.className = 'path__item' + (isCurrent ? ' is-current' : '');
+        li.className = 'path__item reveal' + (isCurrent ? ' is-current' : '');
 
         const num = document.createElement('span');
         num.className = 'path__num';

@@ -1,6 +1,6 @@
-import { PATHS } from './globals.js';
+import { PATHS, VERSION } from './globals.js';
 
-const currentProgramHtml = await fetch(`${PATHS.modules}/currentProgram.html`).then(res => res.text());
+const currentProgramHtml = await fetch(`${PATHS.modules}/currentProgram.html?v=${VERSION}`).then(res => res.text());
 document.getElementById('program').outerHTML = currentProgramHtml;
 
 import currentProgramJson from '../data/currentProgram.json' with { type: 'json' };
@@ -73,7 +73,7 @@ import currentProgramJson from '../data/currentProgram.json' with { type: 'json'
         const ctaButton = document.querySelector('.accordion__inner-btn');
         if (ctaButton && slider.ctaButton) {
             ctaButton.href = slider.ctaButton.link;
-            const arrowIcon = await fetch(`${PATHS.svg}/arrow.svg`).then(res => res.text());
+            const arrowIcon = await fetch(`${PATHS.svg}/arrow.svg?v=${VERSION}`).then(res => res.text());
             ctaButton.innerHTML = `
                 ${slider.ctaButton.text}
                 ${arrowIcon}
@@ -99,7 +99,7 @@ import currentProgramJson from '../data/currentProgram.json' with { type: 'json'
         function openProgAccordion() {
             trigger.setAttribute('aria-expanded', 'true');
             body.style.maxHeight = body.scrollHeight + 'px';
-            icon && (icon.textContent = '−');
+            icon && icon.classList.add('is-open');
             body.addEventListener('transitionend', function onEnd() {
                 if (trigger.getAttribute('aria-expanded') === 'true') {
                     body.style.maxHeight = 'none';
@@ -113,7 +113,7 @@ import currentProgramJson from '../data/currentProgram.json' with { type: 'json'
             if (isOpen) {
                 trigger.setAttribute('aria-expanded', 'false');
                 body.style.maxHeight = '0';
-                icon && (icon.textContent = '+');
+                icon && icon.classList.remove('is-open');
             } else {
                 openProgAccordion();
             }
@@ -122,7 +122,7 @@ import currentProgramJson from '../data/currentProgram.json' with { type: 'json'
         // Open by default at every screen size.
         trigger.setAttribute('aria-expanded', 'true');
         body.style.maxHeight = 'none';
-        icon && (icon.textContent = '−');
+        icon && icon.classList.add('is-open');
     }
 
     /* ── Lesson cards prev/next ───────────────────────────── */
@@ -164,5 +164,30 @@ import currentProgramJson from '../data/currentProgram.json' with { type: 'json'
         cardRow.addEventListener('scroll', scheduleUpdateCardNav, { passive: true });
         window.addEventListener('resize', updateCardNav);
         updateCardNav();
+
+        // Cinematic focus: the card mostly in view is at full opacity,
+        // the ones peeking at the edges are gently dimmed.
+        const cards = Array.from(cardRow.querySelectorAll('.lesson-card'));
+        let focusRaf;
+        function updateCardFocus() {
+            const containerRect = cardRow.getBoundingClientRect();
+            cards.forEach(function (card) {
+                const cardRect = card.getBoundingClientRect();
+                const visibleLeft = Math.max(cardRect.left, containerRect.left);
+                const visibleRight = Math.min(cardRect.right, containerRect.right);
+                const visibleWidth = Math.max(0, visibleRight - visibleLeft);
+                card.classList.toggle('is-focused', visibleWidth / cardRect.width > 0.6);
+            });
+        }
+        function scheduleCardFocus() {
+            if (focusRaf) return;
+            focusRaf = requestAnimationFrame(function () {
+                updateCardFocus();
+                focusRaf = null;
+            });
+        }
+        cardRow.addEventListener('scroll', scheduleCardFocus, { passive: true });
+        window.addEventListener('resize', scheduleCardFocus);
+        updateCardFocus();
     }
 })();

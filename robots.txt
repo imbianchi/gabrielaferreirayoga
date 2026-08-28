@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gabrielaferreirayoga.pt/sitemap.xml
+Sitemap: https://gabrielaferreirayoga.com/sitemap.xml

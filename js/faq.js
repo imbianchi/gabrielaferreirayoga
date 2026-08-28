@@ -1,6 +1,6 @@
-import { PATHS } from './globals.js';
+import { PATHS, VERSION } from './globals.js';
 
-const faqHtml = await fetch(`${PATHS.modules}/faq.html`).then(res => res.text());
+const faqHtml = await fetch(`${PATHS.modules}/faq.html?v=${VERSION}`).then(res => res.text());
 document.getElementById('faq').outerHTML = faqHtml;
 
 import faqJson from '../data/faq.json' with { type: 'json' };
@@ -28,7 +28,7 @@ import faqJson from '../data/faq.json' with { type: 'json' };
         accordion.innerHTML = faqJson.questions.map((item, index) => {
             const n = index + 1;
             return `
-                <div class="faq-item" role="listitem">
+                <div class="faq-item reveal" role="listitem">
                     <button
                         class="faq-item__trigger"
                         aria-expanded="false"
@@ -62,7 +62,7 @@ import faqJson from '../data/faq.json' with { type: 'json' };
         const body = item.querySelector('.faq-item__body');
         const icon = item.querySelector('.faq-item__icon');
         trigger && trigger.setAttribute('aria-expanded', 'true');
-        icon && (icon.textContent = '−');
+        icon && icon.classList.add('is-open');
         if (body) {
             body.style.maxHeight = body.scrollHeight + 'px';
             body.addEventListener('transitionend', function onEnd() {
@@ -85,7 +85,7 @@ import faqJson from '../data/faq.json' with { type: 'json' };
             body.offsetHeight; // eslint-disable-line no-unused-expressions
         }
         trigger && trigger.setAttribute('aria-expanded', 'false');
-        icon && (icon.textContent = '+');
+        icon && icon.classList.remove('is-open');
         body && (body.style.maxHeight = '0');
     }
 

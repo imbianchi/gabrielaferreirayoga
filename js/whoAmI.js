@@ -1,6 +1,6 @@
-import { PATHS } from './globals.js';
+import { PATHS, VERSION } from './globals.js';
 
-const whoAmIHtml = await fetch(`${PATHS.modules}/whoAmI.html`).then(res => res.text());
+const whoAmIHtml = await fetch(`${PATHS.modules}/whoAmI.html?v=${VERSION}`).then(res => res.text());
 document.getElementById('about').outerHTML = whoAmIHtml;
 
 import whoAmIJson from '../data/whoAmI.json' with { type: 'json' };

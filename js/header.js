@@ -1,6 +1,6 @@
-import { PATHS } from './globals.js';
+import { PATHS, VERSION } from './globals.js';
 
-const headerHtml = await fetch(`${PATHS.modules}/header.html`).then(res => res.text());
+const headerHtml = await fetch(`${PATHS.modules}/header.html?v=${VERSION}`).then(res => res.text());
 document.getElementById('header').innerHTML = headerHtml;
 
 import headerJson from '../data/header.json' with { type: 'json' };
@@ -25,8 +25,8 @@ import headerJson from '../data/header.json' with { type: 'json' };
     if (ctaButton && headerJson.ctaButton) {
         ctaButton.href = headerJson.ctaButton.link;
 
-        const whatsappIcon = await fetch(`${PATHS.svg}/whatsapp.svg`).then(res => res.text());
-        const arrowIcon = await fetch(`${PATHS.svg}/arrow.svg`).then(res => res.text());
+        const whatsappIcon = await fetch(`${PATHS.svg}/whatsapp.svg?v=${VERSION}`).then(res => res.text());
+        const arrowIcon = await fetch(`${PATHS.svg}/arrow.svg?v=${VERSION}`).then(res => res.text());
 
         ctaButton.innerHTML = `
             ${whatsappIcon}

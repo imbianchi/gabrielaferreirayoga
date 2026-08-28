@@ -95,10 +95,12 @@
   color: var(--color-dark-orange);
   line-height: 1;
   flex-shrink: 0;
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease;
   width: 1.4rem;
   text-align: center;
 }
+/* "+" rotated 45° reads as "×" — smoother than swapping characters */
+.accordion__icon.is-open { transform: rotate(45deg); }
 
 .accordion__body {
   overflow: hidden;
@@ -141,7 +143,10 @@
   position: relative;
   aspect-ratio: 3 / 2.2;
   background: var(--color-dark-green);
+  opacity: 0.55;
+  transition: opacity 0.3s ease;
 }
+.lesson-card.is-focused { opacity: 1; }
 
 .lesson-card__img {
   width: 100%;

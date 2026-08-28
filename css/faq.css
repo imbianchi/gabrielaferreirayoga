@@ -46,8 +46,10 @@
   width: 1.3rem;
   text-align: center;
   margin-top: 0.1rem;
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease;
 }
+/* "+" rotated 45° reads as "×" — smoother than swapping characters */
+.faq-item__icon.is-open { transform: rotate(45deg); }
 
 .faq-item__body {
   overflow: hidden;

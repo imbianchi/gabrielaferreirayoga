@@ -1,6 +1,6 @@
-import { PATHS } from './globals.js';
+import { PATHS, VERSION } from './globals.js';
 
-const heroHtml = await fetch(`${PATHS.modules}/hero.html`).then(res => res.text());
+const heroHtml = await fetch(`${PATHS.modules}/hero.html?v=${VERSION}`).then(res => res.text());
 document.getElementById('hero').innerHTML = heroHtml;
 
 import heroJson from '../data/hero.json' with { type: 'json' };
@@ -33,11 +33,37 @@ import heroJson from '../data/hero.json' with { type: 'json' };
     if (ctaButton && heroJson.ctaButton) {
         ctaButton.href = heroJson.ctaButton.link;
 
-        const arrowIcon = await fetch(`${PATHS.svg}/arrow.svg`).then(res => res.text());
+        const arrowIcon = await fetch(`${PATHS.svg}/arrow.svg?v=${VERSION}`).then(res => res.text());
 
         ctaButton.innerHTML = `
             ${heroJson.ctaButton.title}
             ${arrowIcon}
         `;
     }
+})();
+
+/**
+ * Hero JavaScript
+ * Subtle parallax on the background photo — moves a little slower
+ * than the scroll, capped so it never reveals the overscanned edge.
+ */
+(function () {
+    'use strict';
+
+    const hero = document.querySelector('.hero');
+    const heroBg = document.querySelector('.hero__bg');
+    if (!hero || !heroBg) return;
+
+    const MAX_OFFSET = 60;
+    const SPEED = 0.15;
+
+    function updateParallax() {
+        const rect = hero.getBoundingClientRect();
+        if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
+        const offset = Math.max(-MAX_OFFSET, Math.min(MAX_OFFSET, rect.top * -SPEED));
+        heroBg.style.transform = `translateY(${offset}px)`;
+    }
+
+    window.addEventListener('scroll', updateParallax, { passive: true });
+    updateParallax();
 })();

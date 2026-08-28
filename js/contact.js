@@ -1,6 +1,6 @@
-import { PATHS } from './globals.js';
+import { PATHS, VERSION } from './globals.js';
 
-const contactHtml = await fetch(`${PATHS.modules}/contact.html`).then(res => res.text());
+const contactHtml = await fetch(`${PATHS.modules}/contact.html?v=${VERSION}`).then(res => res.text());
 document.getElementById('contact').outerHTML = contactHtml;
 
 import contactJson from '../data/contact.json' with { type: 'json' };
@@ -29,7 +29,7 @@ import contactJson from '../data/contact.json' with { type: 'json' };
     const ctaButton = document.querySelector('.cta-banner__btn');
     if (ctaButton && contactJson.ctaButton) {
         ctaButton.href = contactJson.ctaButton.link;
-        const arrowIcon = await fetch(`${PATHS.svg}/arrow.svg`).then(res => res.text());
+        const arrowIcon = await fetch(`${PATHS.svg}/arrow.svg?v=${VERSION}`).then(res => res.text());
         ctaButton.innerHTML = `
             ${contactJson.ctaButton.text}
             ${arrowIcon}

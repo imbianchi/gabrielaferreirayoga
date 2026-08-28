@@ -1,6 +1,6 @@
-import { PATHS } from './globals.js';
+import { PATHS, VERSION } from './globals.js';
 
-const whatItIsHtml = await fetch(`${PATHS.modules}/whatItIs.html`).then(res => res.text());
+const whatItIsHtml = await fetch(`${PATHS.modules}/whatItIs.html?v=${VERSION}`).then(res => res.text());
 document.getElementById('kundalini').outerHTML = whatItIsHtml;
 
 import whatItIsJson from '../data/whatItIs.json' with { type: 'json' };

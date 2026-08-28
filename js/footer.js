@@ -1,6 +1,6 @@
-import { PATHS } from './globals.js';
+import { PATHS, VERSION } from './globals.js';
 
-const footerHtml = await fetch(`${PATHS.modules}/footer.html`).then(res => res.text());
+const footerHtml = await fetch(`${PATHS.modules}/footer.html?v=${VERSION}`).then(res => res.text());
 document.getElementById('footer').outerHTML = footerHtml;
 
 import footerJson from '../data/footer.json' with { type: 'json' };
@@ -40,7 +40,7 @@ import globalsJson from '../data/globals.json' with { type: 'json' };
     const contactLinksContainer = document.querySelector('.footer__contact-links');
     if (contactLinksContainer && globalsJson.socials) {
         const icons = await Promise.all(
-            globalsJson.socials.map((social) => fetch(`${PATHS.svg}/${social.icon}.svg`).then((res) => res.text()))
+            globalsJson.socials.map((social) => fetch(`${PATHS.svg}/${social.icon}.svg?v=${VERSION}`).then((res) => res.text()))
         );
 
         contactLinksContainer.innerHTML = globalsJson.socials.map((social, index) => {
