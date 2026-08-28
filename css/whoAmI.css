@@ -8,7 +8,7 @@
 }
 .about__row {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
 }
 /* Full bleed cream band */
 .about__text-col {

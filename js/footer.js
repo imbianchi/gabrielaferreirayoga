@@ -60,4 +60,7 @@ import globalsJson from '../data/globals.json' with { type: 'json' };
             `;
         }).join('');
     }
+
+    const footerYear = document.getElementById('footer-year');
+    if (footerYear) footerYear.textContent = new Date().getFullYear();
 })();

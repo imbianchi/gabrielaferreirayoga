@@ -111,7 +111,11 @@
   color: var(--color-text-muted);
 }
 
-.accordion__body-inner > p { margin-bottom: 1.2rem; }
+.accordion__body-inner > p {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  margin-bottom: 1.2rem;
+}
 
 /* Lesson cards row — horizontal scroll carousel */
 .lesson-cards {
@@ -129,13 +133,13 @@
 .lesson-cards::-webkit-scrollbar { display: none; }
 
 .lesson-card {
-  flex: 0 0 85vw;
+  flex: 0 0 78%;
   max-width: 340px;
   border-radius: var(--radius-card);
   overflow: hidden;
   scroll-snap-align: start;
   position: relative;
-  aspect-ratio: 5/7;
+  aspect-ratio: 3 / 2.2;
   background: var(--color-dark-green);
 }
 
@@ -190,18 +194,19 @@
 
 .lesson-cards-nav {
   display: none;
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   border: none;
   background: none;
   box-shadow: none;
   align-items: center;
   justify-content: center;
   color: var(--color-light-orange);
-  font-size: 2.2rem;
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
   font-weight: 700;
   transition: opacity 0.15s;
 }
+.lesson-cards-nav.is-visible { display: flex; }
 
 .lesson-cards-nav:hover { opacity: 0.7; }
 
@@ -209,7 +214,25 @@
 
 .accordion__inner-eyebrow + p { margin-top: 0.75rem; }
 
-.accordion__inner-btn { margin-top: 1.2rem; }
+.accordion__inner-btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: 1.2rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 40px;
+  font-size: 16px;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+.accordion__inner-btn:hover {
+  transform: none;
+  box-shadow: none;
+  filter: none;
+  background: var(--color-grey);
+  color: var(--color-dark-green);
+  border-color: var(--color-dark-green);
+}
 
 @media (min-width: 1024px) {
   .program {
@@ -218,43 +241,26 @@
 
   .lesson-card {
     flex: 0 0 330px;
-    aspect-ratio: 3 / 2.2;
   }
-  
+
   .lesson-cards {
     padding-bottom: 0;
     margin-bottom: 5px;
   }
 
-  .lesson-cards-nav.is-visible { display: flex; }
+  .lesson-cards-nav {
+    width: 44px;
+    height: 44px;
+  }
 
   .accordion__trigger { padding: 0.35rem 0 1rem; }
 
   .accordion__trigger-label { font-size: 24px; }
 
-  .accordion__body-inner > p {
-    font-family: var(--font-sans);
-    font-size: 16px;
-  }
-
   .accordion__inner-divider { border-top-color: var(--color-divider); }
 
   .accordion__inner-btn {
+    width: auto;
     margin-top: 0.5rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    border: 1px solid transparent;
-    border-radius: 40px;
-    font-size: 16px;
-    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
-  }
-  
-  .accordion__inner-btn:hover {
-    transform: none;
-    box-shadow: none;
-    filter: none;
-    background: var(--color-grey);
-    color: var(--color-dark-green);
-    border-color: var(--color-dark-green);
   }
 }
