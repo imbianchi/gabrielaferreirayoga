@@ -14,6 +14,7 @@
 .program__intro p {
   font-family: var(--font-sans);
   color: var(--color-text-muted);
+  font-size: 14px;
   margin-top: 0.75rem;
 }
 
@@ -115,7 +116,7 @@
 
 .accordion__body-inner > p {
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: 14px;
   margin-bottom: 1.2rem;
 }
 
@@ -261,6 +262,10 @@
   .accordion__trigger { padding: 0.35rem 0 1rem; }
 
   .accordion__trigger-label { font-size: 24px; }
+
+  .program__intro p { font-size: 16px; }
+
+  .accordion__body-inner > p { font-size: 16px; }
 
   .accordion__inner-divider { border-top-color: var(--color-divider); }
 

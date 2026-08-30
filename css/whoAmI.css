@@ -17,13 +17,13 @@
 }
 .about__text-col h2 {
   font-weight: 400;
-  font-size: 48px;
+  font-size: 28px;
   line-height: 1.1;
 }
 .about__text-col .about__subtitle {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 30px;
+  font-size: 20px;
   line-height: 1.2;
   color: var(--color-light-green);
   margin-top: 0.1rem;
@@ -32,12 +32,16 @@
 .about__text-col p {
   font-family: var(--font-sans);
   color: var(--color-dark-green);
+  font-size: 14px;
   line-height: 1.5;
   margin-top: 1rem;
 }
 .about__photo-col {
   width: 100%;
-  aspect-ratio: 4/3;
+  /* Matches the photo's own ratio (679×636) so object-fit: cover has
+     no overflow to crop — the torn-edge border stays intact on all
+     four sides instead of being cut off by a mismatched box shape. */
+  aspect-ratio: 679 / 636;
   overflow: hidden;
 }
 .about__photo-col img {
@@ -54,12 +58,20 @@
   }
   .about__text-col {
     flex: 1;
-    padding: 3rem clamp(2rem, 5vw, 5rem) 3rem calc(max(0px, (100vw - var(--container-max)) / 2) + var(--container-pad));
+    padding: 1rem clamp(2rem, 5vw, 5rem) 1rem calc(max(0px, (100vw - var(--container-max)) / 2) + var(--container-pad));
     max-width: none;
   }
   .about__photo-col {
     width: 45%;
     flex-shrink: 0;
-    aspect-ratio: 6 / 5;
+  }
+  .about__text-col p {
+    font-size: 16px;
+  }
+  .about__text-col h2 {
+    font-size: 48px;
+  }
+  .about__text-col .about__subtitle {
+    font-size: 30px;
   }
 }

@@ -65,6 +65,22 @@
   color: var(--color-text-muted);
 }
 
+@media (max-width: 1023.98px) {
+  .site-footer__main {
+    align-items: center;
+    text-align: center;
+  }
+  .footer__contact-links {
+    align-items: center;
+  }
+  .footer__divider {
+    margin-bottom: 0;
+  }
+  .footer__copy {
+    font-size: 0.7rem;
+  }
+}
+
 @media (min-width: 1024px) {
   .site-footer__main {
     flex-direction: row;

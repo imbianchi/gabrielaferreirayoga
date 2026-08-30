@@ -153,6 +153,7 @@ h3 { font-size: 1.2rem; }
     opacity: 1;
     transform: none;
     transition: none;
+    transition-delay: 0s !important;
   }
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
