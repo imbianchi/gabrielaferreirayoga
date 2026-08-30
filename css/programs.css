@@ -8,7 +8,7 @@
 .path h2 { font-weight: 400; margin-bottom: 1rem; }
 .path__lead {
   font-family: var(--font-sans);
-  font-size: 0.95rem;
+  font-size: 14px;
   color: var(--color-text-muted);
   margin-bottom: 2.5rem;
 }
@@ -50,12 +50,17 @@
 .path__title {
   font-family: var(--font-serif);
   font-size: 18px;
+  /* Now an <h3> for screen-reader heading navigation — these two
+     reset the generic h1/h2/h3 rule in style.css (bold weight,
+     1.2 line-height) so the visual result is unchanged. */
+  font-weight: 400;
+  line-height: inherit;
   color: var(--color-dark-green);
   margin-top: 0.1rem;
 }
 .path__desc {
   font-family: var(--font-sans);
-  font-size: 0.9rem;
+  font-size: 14px;
   color: var(--color-dark-green);
   margin-top: 0.05rem;
 }
@@ -83,4 +88,6 @@
   .path {
     padding: var(--section-gap-desktop) 0;
   }
+  .path__lead { font-size: 0.95rem; }
+  .path__desc { font-size: 0.9rem; }
 }

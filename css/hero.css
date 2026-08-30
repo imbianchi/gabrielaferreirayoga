@@ -16,28 +16,44 @@
   top: -8%;
   height: 116%;
   z-index: 0;
-  will-change: transform;
+}
+/* Below 1024px the photo is always height-constrained by object-fit:
+   cover (portrait box, portrait photo), so there's no vertical
+   overflow left for object-position to redistribute — shifting it
+   never moves the crop. Dropping the bottom overscan margin instead
+   pins the image's true bottom edge — torn strip included — to the
+   viewport's bottom edge, where it's always visible. */
+@media (max-width: 1023.98px) {
+  .hero__bg {
+    height: auto;
+    bottom: 0;
+  }
 }
 .hero__bg img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: 50% 100%;
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
-/* Primary-color tint over the photo */
-.hero__bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(31, 58, 46, 0.42);
+.hero__bg img.is-loaded {
+  opacity: 1;
 }
 .hero__content {
   position: relative;
   z-index: 1;
-  width: 90%;
+  width: 75%;
   margin: 0 auto;
   text-align: left;
   padding: 0 0 56px;
+  /* Contrast safety net, not a design change: the photo has no tint
+     overlay, so text legibility depends on whatever's behind it at
+     any given moment (sky, water, foliage). A soft dark shadow keeps
+     every word readable without adding a visible box/tint. Inherited
+     by h1/accent/lead; reset on the CTA button below since that sits
+     on its own solid background. */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55), 0 2px 16px rgba(0, 0, 0, 0.35);
 }
 /* Staggered fade-up on load — title, accent, lead, button breathe in
    one after another, slowly and gently. */
@@ -66,7 +82,7 @@
   font-family: var(--font-serif);
   font-style: italic;
   font-weight: 700;
-  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
   color: var(--color-light-orange);
   margin-bottom: 1.4rem;
   line-height: 1.3;
@@ -77,6 +93,25 @@
   font-size: 1.05rem;
   margin-bottom: 2rem;
   opacity: 0.9;
+}
+
+/* Ambient breathing cue — a quiet 8s pulse (4s in, 4s out), a nod to
+   breath-led practice rather than a UI control. Purely decorative;
+   frozen by the global prefers-reduced-motion override. */
+.hero__breath {
+  position: absolute;
+  z-index: 1;
+  right: 24px;
+  bottom: 24px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-light-orange);
+  animation: heroBreathe 8s ease-in-out infinite;
+}
+@keyframes heroBreathe {
+  0%, 100% { transform: scale(0.7); opacity: 0.35; }
+  50% { transform: scale(1); opacity: 0.75; }
 }
 
 @media (min-width: 1024px) {
@@ -92,4 +127,13 @@
   .hero__content h1 { font-size: 3.5rem; }
   .hero__accent { margin-bottom: 0.6rem; }
   .hero__lead { font-size: 18px; }
+  .hero__breath {
+    right: 48px;
+    bottom: 48px;
+    width: 18px;
+    height: 18px;
+  }
+  .hero__bg img {
+    object-position: 50% 105%;
+  }
 }

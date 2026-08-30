@@ -77,6 +77,7 @@ import currentProgramJson from '../data/currentProgram.json' with { type: 'json'
             ctaButton.innerHTML = `
                 ${slider.ctaButton.text}
                 ${arrowIcon}
+                <span class="sr-only"> (abre em nova aba)</span>
             `;
         }
     }

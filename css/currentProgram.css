@@ -14,6 +14,7 @@
 .program__intro p {
   font-family: var(--font-sans);
   color: var(--color-text-muted);
+  font-size: 14px;
   margin-top: 0.75rem;
 }
 
@@ -115,7 +116,7 @@
 
 .accordion__body-inner > p {
   font-family: var(--font-sans);
-  font-size: 16px;
+  font-size: 14px;
   margin-bottom: 1.2rem;
 }
 
@@ -166,25 +167,34 @@
 }
 
 .lesson-card__eyebrow {
+  display: inline-block;
+  /* .lesson-card__overlay is a column flex container — without this,
+     an inline-block child stretches to its full width by default. */
+  align-self: flex-start;
   font-family: var(--font-sans);
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-dark-orange);
-  margin-bottom: 0.3rem;
+  color: var(--color-white);
+  background: rgba(196, 87, 42, 0.55);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 0.5rem;
 }
 
 .lesson-card__title {
   font-family: var(--font-serif);
-  font-size: 1.15rem;
+  font-size: 18px;
   color: var(--color-white);
   margin-bottom: 0.4rem;
   line-height: 1.25;
 }
 
 .lesson-card__desc {
-  font-size: 0.82rem;
+  font-size: 14px;
   color: rgba(255,255,255,0.8);
   line-height: 1.4;
 }
@@ -261,6 +271,14 @@
   .accordion__trigger { padding: 0.35rem 0 1rem; }
 
   .accordion__trigger-label { font-size: 24px; }
+
+  .program__intro p { font-size: 16px; }
+
+  .accordion__body-inner > p { font-size: 16px; }
+
+  .lesson-card__title { font-size: 1.15rem; }
+
+  .lesson-card__desc { font-size: 0.82rem; }
 
   .accordion__inner-divider { border-top-color: var(--color-divider); }
 

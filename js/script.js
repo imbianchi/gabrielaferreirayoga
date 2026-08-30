@@ -48,12 +48,26 @@ import './footer.js';
      first time they enter the viewport. Elements already visible
      when observed (e.g. the hero) reveal immediately, since
      IntersectionObserver fires on the very first observe() call. */
+  /* Stagger delay for elements that reveal together (e.g. FAQ items,
+     path cards): siblings fade in one after another instead of all at
+     once, so the reveal reads as a cascade rather than a single flat
+     pop. Capped so a long list doesn't leave the last items waiting. */
+  function staggerDelay(el) {
+    const parent = el.parentElement;
+    if (!parent) return 0;
+    const group = Array.prototype.filter.call(parent.children, function (child) {
+      return child.classList.contains('reveal') || child.classList.contains('reveal-img');
+    });
+    return Math.min(group.indexOf(el), 6) * 90;
+  }
+
   const revealEls = document.querySelectorAll('.reveal, .reveal-img');
   if (revealEls.length && 'IntersectionObserver' in window) {
     const revealObserver = new IntersectionObserver(
       function (entries, observer) {
         entries.forEach(function (entry) {
           if (!entry.isIntersecting) return;
+          entry.target.style.transitionDelay = staggerDelay(entry.target) + 'ms';
           entry.target.classList.add('is-visible');
           observer.unobserve(entry.target);
         });

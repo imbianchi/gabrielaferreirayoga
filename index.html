@@ -43,7 +43,20 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500;600;700&family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
-  <!-- Stylesheet -->
+  <!-- Stylesheets — linked separately (not @import'd from style.css)
+       so the browser fetches them in parallel instead of serially.
+       Order matches the old @import order for the same cascade;
+       style.css (tokens/reset/base) loads last, same as before. -->
+  <link rel="stylesheet" href="css/buttons.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/currentProgram.css">
+  <link rel="stylesheet" href="css/whatItIs.css">
+  <link rel="stylesheet" href="css/programs.css">
+  <link rel="stylesheet" href="css/whoAmI.css">
+  <link rel="stylesheet" href="css/faq.css">
+  <link rel="stylesheet" href="css/contact.css">
+  <link rel="stylesheet" href="css/footer.css">
   <link rel="stylesheet" href="css/style.css">
 
   <!-- JSON-LD structured data -->
@@ -201,10 +214,16 @@
 </head>
 <body>
 
+  <a href="#main-content" class="skip-link">Saltar para o conteúdo</a>
+
   <noscript>
     <div style="padding:1.5rem;text-align:center;background:#efe6d8;color:#3a2e24;font-family:sans-serif;">
-      <p style="margin:0 0 .5rem;font-weight:bold;">O conteúdo desta página é carregado com JavaScript, que está desativado no teu navegador.</p>
-      <p style="margin:0;">Podes contactar-me via WhatsApp: <a href="https://wa.me/351914992464" target="_blank" rel="noopener noreferrer">wa.me/351914992464</a> ou no Instagram: <a href="https://instagram.com/gabrielaferreirayoga" target="_blank" rel="noopener noreferrer">@gabrielaferreirayoga</a>.</p>
+      <h1 style="margin:0 0 .75rem;font-size:1.3rem;">Gabriela Ferreira Yoga — Kundalini Yoga em Vila Nova de Gaia</h1>
+      <p style="margin:0 0 .5rem;">Aulas de Kundalini Yoga em Vila Nova de Gaia. Programas mensais para desenvolver presença, consciência e equilíbrio, sem experiência prévia necessária.</p>
+      <p style="margin:0 0 .5rem;">Av. Vasco da Gama n.º 774, E. 52, Parque Empresarial Fercopor, 4430-247 Vila Nova de Gaia</p>
+      <p style="margin:0 0 .5rem;">Aulas de segunda a sexta, das 19h00 às 21h00.</p>
+      <p style="margin:0 0 .5rem;font-weight:bold;">Para veres o site completo, ativa o JavaScript no teu navegador.</p>
+      <p style="margin:0;">Contacta-me pelo telefone <a href="tel:+351914992464">+351 914 992 464</a>, por WhatsApp: <a href="https://wa.me/351914992464" target="_blank" rel="noopener noreferrer">wa.me/351914992464</a> ou no Instagram: <a href="https://instagram.com/gabrielaferreirayoga" target="_blank" rel="noopener noreferrer">@gabrielaferreirayoga</a>.</p>
     </div>
   </noscript>
 

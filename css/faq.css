@@ -9,7 +9,7 @@
 
 .faq__header { margin-bottom: 2rem; }
 
-.faq__header h2 { font-weight: 400; font-size: 48px; }
+.faq__header h2 { font-weight: 400; font-size: 28px; }
 
 /* FAQ accordion */
 .faq-item { border-bottom: 1px solid var(--color-divider); }
@@ -68,6 +68,8 @@
 
 @media (min-width: 1024px) {
   .faq { padding: var(--section-gap-desktop) 0; }
-  
+
   .faq__content { max-width: 780px; }
+
+  .faq__header h2 { font-size: 48px; }
 }

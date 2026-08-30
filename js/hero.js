@@ -12,10 +12,13 @@ import heroJson from '../data/hero.json' with { type: 'json' };
 (async function () {
     'use strict';
 
-    // Background image
+    // Background image — fade in over the blurred CSS placeholder
+    // once the full-resolution photo has actually finished loading.
     const bgImg = document.querySelector('.hero__bg img');
     if (bgImg && heroJson.image) {
+        bgImg.addEventListener('load', function () { bgImg.classList.add('is-loaded'); });
         bgImg.src = `${PATHS.images}/${heroJson.image}.webp`;
+        if (bgImg.complete) bgImg.classList.add('is-loaded');
     }
 
     // Title / accent / lead
@@ -40,30 +43,4 @@ import heroJson from '../data/hero.json' with { type: 'json' };
             ${arrowIcon}
         `;
     }
-})();
-
-/**
- * Hero JavaScript
- * Subtle parallax on the background photo — moves a little slower
- * than the scroll, capped so it never reveals the overscanned edge.
- */
-(function () {
-    'use strict';
-
-    const hero = document.querySelector('.hero');
-    const heroBg = document.querySelector('.hero__bg');
-    if (!hero || !heroBg) return;
-
-    const MAX_OFFSET = 60;
-    const SPEED = 0.15;
-
-    function updateParallax() {
-        const rect = hero.getBoundingClientRect();
-        if (rect.bottom <= 0 || rect.top >= window.innerHeight) return;
-        const offset = Math.max(-MAX_OFFSET, Math.min(MAX_OFFSET, rect.top * -SPEED));
-        heroBg.style.transform = `translateY(${offset}px)`;
-    }
-
-    window.addEventListener('scroll', updateParallax, { passive: true });
-    updateParallax();
 })();

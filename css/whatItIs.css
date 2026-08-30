@@ -28,6 +28,7 @@
 .kundalini__text-col p {
   font-family: var(--font-sans);
   color: var(--color-dark-green);
+  font-size: 14px;
   margin-top: 1rem;
   max-width: 520px;
 }
@@ -44,6 +45,9 @@
   }
   .kundalini__text-col {
     width: 50%;
-    padding: 7rem calc(max(0px, (100vw - var(--container-max)) / 2) + var(--container-pad)) 7rem clamp(2rem, 5vw, 5rem);
+    padding: 4rem calc(max(0px, (100vw - var(--container-max)) / 2) + var(--container-pad)) 4rem clamp(2rem, 5vw, 5rem);
+  }
+  .kundalini__text-col p {
+    font-size: 16px;
   }
 }
