@@ -50,6 +50,11 @@
 .path__title {
   font-family: var(--font-serif);
   font-size: 18px;
+  /* Now an <h3> for screen-reader heading navigation — these two
+     reset the generic h1/h2/h3 rule in style.css (bold weight,
+     1.2 line-height) so the visual result is unchanged. */
+  font-weight: 400;
+  line-height: inherit;
   color: var(--color-dark-green);
   margin-top: 0.1rem;
 }

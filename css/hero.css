@@ -47,6 +47,13 @@
   margin: 0 auto;
   text-align: left;
   padding: 0 0 56px;
+  /* Contrast safety net, not a design change: the photo has no tint
+     overlay, so text legibility depends on whatever's behind it at
+     any given moment (sky, water, foliage). A soft dark shadow keeps
+     every word readable without adding a visible box/tint. Inherited
+     by h1/accent/lead; reset on the CTA button below since that sits
+     on its own solid background. */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.55), 0 2px 16px rgba(0, 0, 0, 0.35);
 }
 /* Staggered fade-up on load — title, accent, lead, button breathe in
    one after another, slowly and gently. */

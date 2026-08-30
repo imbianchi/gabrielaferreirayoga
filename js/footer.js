@@ -28,12 +28,12 @@ import globalsJson from '../data/globals.json' with { type: 'json' };
         instagram: (social) => ({
             href: `https://instagram.com/${social.userName}`,
             label: `@${social.userName}`,
-            ariaLabel: `Instagram @${social.userName}`,
+            ariaLabel: `Instagram @${social.userName} (abre em nova aba)`,
         }),
         whatsapp: (social) => ({
             href: `https://wa.me/${social.number}`,
             label: social.number,
-            ariaLabel: 'WhatsApp — contact Gabriela Ferreira',
+            ariaLabel: 'WhatsApp — contactar Gabriela Ferreira (abre em nova aba)',
         }),
     };
 

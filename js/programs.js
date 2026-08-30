@@ -57,7 +57,7 @@ import programsJson from '../data/programs.json' with { type: 'json' };
         month.className = 'path__month';
         month.textContent = monthLabel;
 
-        const title = document.createElement('div');
+        const title = document.createElement('h3');
         title.className = 'path__title';
         title.textContent = program.title;
 

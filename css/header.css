@@ -40,6 +40,9 @@
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   font-size: 16px;
+  /* Sits on its own solid background — doesn't need the hero's
+     text-shadow contrast fallback. */
+  text-shadow: none;
   transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
 }
 .hero__cta .icon:first-child {
@@ -96,6 +99,10 @@
   font-size: clamp(1.15rem, 2.4vw, 1.5rem);
   color: var(--color-grey);
   border-radius: 50%;
+  /* Same contrast safety net as the hero text — the glass pill is only
+     20% opaque before scroll, so the icon's own contrast against the
+     photo behind it isn't guaranteed without this. */
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
 }
 
 /* WhatsApp icon-only pill — same button at every size below desktop */
@@ -218,6 +225,9 @@
     color: var(--color-grey);
     text-decoration: none;
     white-space: nowrap;
+    /* Contrast safety net for the pre-scroll glass pill (20% opaque
+       over the hero photo) — same reasoning as .hero__content. */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     transition: color 0.25s ease;
   }
   .nav__links a::after {

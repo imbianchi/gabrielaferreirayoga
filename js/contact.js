@@ -33,6 +33,7 @@ import contactJson from '../data/contact.json' with { type: 'json' };
         ctaButton.innerHTML = `
             ${contactJson.ctaButton.text}
             ${arrowIcon}
+            <span class="sr-only"> (abre em nova aba)</span>
         `;
     }
 })();
