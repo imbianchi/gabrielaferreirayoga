@@ -31,8 +31,8 @@ import globalsJson from '../data/globals.json' with { type: 'json' };
             ariaLabel: `Instagram @${social.userName} (abre em nova aba)`,
         }),
         whatsapp: (social) => ({
-            href: `https://wa.me/${social.number}`,
-            label: social.number.replace(/^351/, ''),
+            href: `https://wa.me/${social.number}?text=${encodeURIComponent('Olá, Gabriela. Gostaria de saber mais sobre as aulas de Kundalini Yoga.')}`,
+            label: 'WhatsApp',
             ariaLabel: 'WhatsApp — contactar Gabriela Ferreira (abre em nova aba)',
         }),
     };
