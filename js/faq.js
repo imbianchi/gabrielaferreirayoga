@@ -104,9 +104,4 @@ import faqJson from '../data/faq.json' with { type: 'json' };
             }
         });
     });
-
-    // Open first FAQ item by default
-    if (faqItems.length > 0) {
-        openFaqItem(faqItems[0]);
-    }
 })();

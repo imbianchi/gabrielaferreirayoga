@@ -32,7 +32,7 @@ import globalsJson from '../data/globals.json' with { type: 'json' };
         }),
         whatsapp: (social) => ({
             href: `https://wa.me/${social.number}`,
-            label: social.number,
+            label: social.number.replace(/^351/, ''),
             ariaLabel: 'WhatsApp — contactar Gabriela Ferreira (abre em nova aba)',
         }),
     };
