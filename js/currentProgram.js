@@ -119,11 +119,6 @@ import currentProgramJson from '../data/currentProgram.json' with { type: 'json'
                 openProgAccordion();
             }
         });
-
-        // Open by default at every screen size.
-        trigger.setAttribute('aria-expanded', 'true');
-        body.style.maxHeight = 'none';
-        icon && icon.classList.add('is-open');
     }
 
     /* ── Lesson cards prev/next ───────────────────────────── */
