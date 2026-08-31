@@ -263,10 +263,27 @@
     margin-bottom: 5px;
   }
 
-  .lesson-cards-nav {
-    width: 44px;
-    height: 44px;
+  .lesson-cards-wrap { overflow: visible; }
+
+  .lesson-cards-controls {
+    position: absolute;
+    inset: 0;
+    margin-top: 0;
+    pointer-events: none;
   }
+
+  .lesson-cards-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    height: auto;
+    -webkit-text-stroke: 1.5px currentColor;
+    pointer-events: auto;
+  }
+
+  .lesson-cards-nav--prev { right: 100%; margin-right: 14px; }
+  .lesson-cards-nav--next { left: 100%; margin-left: 14px; }
 
   .accordion__trigger { padding: 0.35rem 0 1rem; }
 

@@ -104,6 +104,7 @@ import currentProgramJson from '../data/currentProgram.json' with { type: 'json'
             body.addEventListener('transitionend', function onEnd() {
                 if (trigger.getAttribute('aria-expanded') === 'true') {
                     body.style.maxHeight = 'none';
+                    body.style.overflow = 'visible';
                 }
                 body.removeEventListener('transitionend', onEnd);
             });
@@ -113,6 +114,7 @@ import currentProgramJson from '../data/currentProgram.json' with { type: 'json'
             const isOpen = trigger.getAttribute('aria-expanded') === 'true';
             if (isOpen) {
                 trigger.setAttribute('aria-expanded', 'false');
+                body.style.overflow = 'hidden';
                 body.style.maxHeight = '0';
                 icon && icon.classList.remove('is-open');
             } else {
