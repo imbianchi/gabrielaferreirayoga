@@ -23,9 +23,6 @@ import contactJson from '../data/contact.json' with { type: 'json' };
     const heading = document.getElementById('cta-banner-heading');
     if (heading) heading.textContent = contactJson.mainTitle;
 
-    const text = document.querySelector('.cta-banner__content p');
-    if (text) text.textContent = contactJson.text;
-
     const ctaButton = document.querySelector('.cta-banner__btn');
     if (ctaButton && contactJson.ctaButton) {
         ctaButton.href = contactJson.ctaButton.link;
