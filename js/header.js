@@ -46,9 +46,9 @@ import headerJson from '../data/header.json' with { type: 'json' };
 
     /* ── Sticky header ────────────────────────────────────── */
     const header = document.querySelector('.site-header');
-    const hero = document.querySelector('.hero');
 
     function updateHeaderBg() {
+        const hero = document.querySelector('.hero');
         if (!header || !hero) return;
         const heroBottom = hero.getBoundingClientRect().bottom;
         if (heroBottom <= 0) {

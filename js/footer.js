@@ -32,7 +32,7 @@ import globalsJson from '../data/globals.json' with { type: 'json' };
         }),
         whatsapp: (social) => ({
             href: `https://wa.me/${social.number}?text=${encodeURIComponent('Olá, Gabriela. Gostaria de saber mais sobre as aulas de Kundalini Yoga.')}`,
-            label: 'WhatsApp',
+            label: 'Fala comigo',
             ariaLabel: 'WhatsApp — contactar Gabriela Ferreira (abre em nova aba)',
         }),
     };
