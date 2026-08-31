@@ -24,6 +24,9 @@ import './footer.js';
     const headerH = header ? header.getBoundingClientRect().bottom : 0;
     const top = target.getBoundingClientRect().top + window.scrollY - headerH - 12;
     window.scrollTo({ top, behavior: 'smooth' });
+    if (target.hasAttribute('tabindex')) {
+      target.focus({ preventScroll: true });
+    }
   }
 
   document.addEventListener('click', function (e) {
