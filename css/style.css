@@ -79,7 +79,7 @@ ul { list-style: none; }
    straight to <main> instead of tabbing through every nav link. */
 .skip-link {
   position: absolute;
-  top: -3rem;
+  top: 1rem;
   left: 1rem;
   z-index: 1000;
   background: var(--color-dark-green);
@@ -88,10 +88,14 @@ ul { list-style: none; }
   font-weight: 600;
   padding: 0.75rem 1.25rem;
   border-radius: 8px;
-  transition: top 0.2s ease;
+  /* -200% (not a fixed px/rem offset) scales with the element's own
+     rendered height, so it clears the viewport completely regardless
+     of font metrics/padding — no sliver of the box can ever peek in. */
+  transform: translateY(-200%);
+  transition: transform 0.2s ease;
 }
 .skip-link:focus {
-  top: 1rem;
+  transform: translateY(0);
 }
 
 /* ── Utility: full-bleed ─────────────────────────────────── */
