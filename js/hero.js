@@ -17,7 +17,11 @@ import heroJson from '../data/hero.json' with { type: 'json' };
     const bgImg = document.querySelector('.hero__bg img');
     if (bgImg && heroJson.image) {
         bgImg.addEventListener('load', function () { bgImg.classList.add('is-loaded'); });
-        bgImg.src = `${PATHS.images}/${heroJson.image}.webp`;
+        const base = `${PATHS.images}/${heroJson.image}`;
+        // Responsive widths generated alongside the full-res file (see README).
+        // Naming convention: <image>-<width>.webp, full-res file has no suffix.
+        bgImg.srcset = `${base}-640.webp 640w, ${base}-960.webp 960w, ${base}-1280.webp 1280w, ${base}.webp 1519w`;
+        bgImg.src = `${base}.webp`;
         if (bgImg.complete) bgImg.classList.add('is-loaded');
     }
 
