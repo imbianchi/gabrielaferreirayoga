@@ -46,9 +46,7 @@ function renderHero() {
   const $ = loadFragment('modules/hero.html');
 
   const img = $('.hero__bg img');
-  const base = `/assets/images/${json.image}`;
-  img.attr('srcset', `${base}-640.webp 640w, ${base}-960.webp 960w, ${base}-1280.webp 1280w, ${base}.webp 1519w`);
-  img.attr('src', `${base}.webp`);
+  img.attr('src', `/assets/images/${json.image}.webp`);
 
   $('.hero__content h1').text(json.mainTitle);
   $('.hero__accent').text(json.subTitle);
