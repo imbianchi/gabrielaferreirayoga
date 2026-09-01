@@ -43,13 +43,23 @@
 
 /* ── Reset ───────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+/* Soft cream instead of stark browser white — this is what shows
+   through while body is still fading in on page load. */
+html { scroll-behavior: smooth; background: var(--color-grey); }
 body {
   font-family: var(--font-serif);
   color: var(--color-dark-green);
   background: var(--color-white);
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  /* Symmetric ease-in-out — like the hero__breath pulse — so the fade
+     builds and settles gradually instead of front-loading most of the
+     opacity change into the first frames (which read as a flash). */
+  animation: page-fade-in 1200ms cubic-bezier(0.45, 0, 0.55, 1) both;
+}
+@keyframes page-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }

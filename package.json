@@ -1,0 +1,11 @@
+{
+  "name": "gabrielaferreirayoga",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  },
+  "devDependencies": {
+    "cheerio": "^1.0.0"
+  }
+}

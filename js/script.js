@@ -6,11 +6,7 @@
 import './hero.js';
 import { initScrollspy } from './header.js';
 import './currentProgram.js';
-import './whatItIs.js';
-import './programs.js';
-import './whoAmI.js';
 import './faq.js';
-import './contact.js';
 import './footer.js';
 
 (function () {
@@ -40,10 +36,9 @@ import './footer.js';
     smoothScrollTo(hash);
   });
 
-  /* ── Scrollspy ────────────────────────────────────────────
-     Defined in header.js, called here because the section
-     elements it observes are only in their final form once
-     every section module has replaced its placeholder <div>. */
+  /* ── Scrollspy ──────────────────────────────────────────
+     Defined in header.js, called here since script.js loads
+     after all section markup is already in the page. */
   initScrollspy();
 
   /* ── Scroll reveal ────────────────────────────────────────
