@@ -1,45 +1,8 @@
-import { PATHS, VERSION } from './globals.js';
-
-const headerHtml = await fetch(`${PATHS.modules}/header.html?v=${VERSION}`).then(res => res.text());
-document.getElementById('header').innerHTML = headerHtml;
-
-import headerJson from '../data/header.json' with { type: 'json' };
-
 /**
  * Header JavaScript
- * Handle data from header.json
- */
-(async function () {
-    'use strict';
-
-    // Dynamically insert menu items
-    const navLinksContainer = document.querySelector('.nav__links');
-    if (navLinksContainer && headerJson.menuItems) {
-        navLinksContainer.innerHTML = headerJson.menuItems.map(item => {
-            return `<li><a href="${item.link}">${item.label}</a></li>`;
-        }).join('');
-    }
-
-    // Dynamically insert CTA button
-    const ctaButton = document.querySelector('.nav__cta-desktop');
-    if (ctaButton && headerJson.ctaButton) {
-        ctaButton.href = headerJson.ctaButton.link;
-
-        const whatsappIcon = await fetch(`${PATHS.svg}/whatsapp.svg?v=${VERSION}`).then(res => res.text());
-        const arrowIcon = await fetch(`${PATHS.svg}/arrow.svg?v=${VERSION}`).then(res => res.text());
-
-        ctaButton.innerHTML = `
-            ${whatsappIcon}
-                ${headerJson.ctaButton.label}
-            ${arrowIcon}
-        `;
-    }
-})();
-
-
-/**
- * Header JavaScript
- * Handles sticky header, mobile menu and scrollspy functionality
+ * Handles sticky header, mobile menu and scrollspy functionality.
+ * Menu content is already rendered by the static build (see
+ * scripts/build.mjs) — this file only wires up behavior.
  */
 (function () {
     'use strict';
@@ -129,9 +92,8 @@ import headerJson from '../data/header.json' with { type: 'json' };
 
 /**
  * Scrollspy: highlight the current section in the desktop nav.
- * Exported (not auto-run) because the sections it observes only exist
- * in their final form once every section module has replaced its
- * placeholder <div> — script.js calls this after all imports resolve.
+ * Exported (not auto-run) because script.js calls it after every
+ * section is guaranteed to be in the DOM.
  */
 export function initScrollspy() {
     'use strict';
