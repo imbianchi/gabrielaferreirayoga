@@ -15,8 +15,11 @@
 
 .path__item {
   display: grid;
-  grid-template-columns: 2rem 1fr auto;
+  /* Mobile: badge gets its own row below the text so a longer label
+     ("Inscrição aberta") never squeezes the title/description column. */
+  grid-template-columns: 2rem 1fr;
   column-gap: 0.4rem;
+  row-gap: 0.4rem;
   align-items: start;
   padding: 1rem 0;
   border-bottom: 1px solid var(--color-divider);
@@ -87,10 +90,9 @@
 }
 
 .path__badge-col {
-  grid-column: 3;
-  grid-row: 1;
+  grid-column: 2;
+  grid-row: 2;
   align-self: start;
-  padding-top: 0.1rem;
 }
 
 @media (min-width: 1024px) {
@@ -99,4 +101,15 @@
   }
   .path__lead { font-size: 0.95rem; }
   .path__desc { font-size: 0.9rem; }
+
+  /* Desktop: back to a single row with the badge in its own column. */
+  .path__item {
+    grid-template-columns: 2rem 1fr auto;
+    row-gap: 0;
+  }
+  .path__badge-col {
+    grid-column: 3;
+    grid-row: 1;
+    padding-top: 0.1rem;
+  }
 }
