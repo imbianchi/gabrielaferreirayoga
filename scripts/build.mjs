@@ -144,24 +144,57 @@ function renderPrograms() {
   $('.path__lead').text(json.textSummary);
 
   const programs = json.programs;
-  const currentMonth = new Date().getMonth() + 1;
   const firstMonth = Math.min(...programs.map((p) => p.month));
-  // Before the season starts, show the first program as available already
-  // (e.g. sign-ups open in August for the September program). Recomputed
-  // on every build — the deploy workflow rebuilds daily so this stays
-  // correct across month boundaries even without a content change.
-  const current =
-    programs.find((p) => p.month === currentMonth) ||
-    (currentMonth < firstMonth ? programs[0] : undefined);
+  const year = new Date().getFullYear();
+  const today = (() => {
+    const d = new Date();
+    return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  })();
+
+  // Each program has its own Mondays-only class run (4 weekly classes).
+  function mondaysInMonth(month) {
+    const mondays = [];
+    const d = new Date(year, month - 1, 1);
+    while (d.getMonth() === month - 1) {
+      if (d.getDay() === 1) mondays.push(new Date(d));
+      d.setDate(d.getDate() + 1);
+    }
+    return mondays;
+  }
+
+  // A program's badge state, recomputed on every build (the deploy workflow
+  // rebuilds daily so this stays correct without a content change):
+  //  - "available": from its first Monday class through its last Monday
+  //    class — the program is running and single classes can still be sold.
+  //  - "enrolling": from the 21st of the previous month (when sign-ups for
+  //    the next program open) until its own first Monday class.
+  // The two windows never overlap for one program, but adjacent programs
+  // can each show their own badge at once during the handover week.
+  function badgeStateFor(program) {
+    const mondays = mondaysInMonth(program.month);
+    const firstClass = mondays[0];
+    const lastClass = mondays[mondays.length - 1];
+    const enrollmentOpensAt =
+      program.month === firstMonth
+        ? new Date(0) // the very first program has no prior month to open from — open from the start
+        : new Date(year, program.month - 2, 21);
+
+    if (today >= firstClass && today <= lastClass) return 'available';
+    if (today >= enrollmentOpensAt && today < firstClass) return 'enrolling';
+    return null;
+  }
 
   const items = programs
     .map((program, index) => {
-      const isCurrent = !!current && program.month === current.month;
-      const badge = isCurrent
-        ? `<div class="path__badge-col"><span class="badge-available">Disponível</span></div>`
-        : '';
+      const state = badgeStateFor(program);
+      const badge =
+        state === 'available'
+          ? `<div class="path__badge-col"><span class="badge-available">Disponível</span></div>`
+          : state === 'enrolling'
+          ? `<div class="path__badge-col"><span class="badge-enrolling">Inscrição aberta</span></div>`
+          : '';
       return `
-        <li class="path__item reveal${isCurrent ? ' is-current' : ''}">
+        <li class="path__item reveal${state ? ` is-${state}` : ''}">
           <span class="path__num" aria-hidden="true">${String(index + 1).padStart(2, '0')}</span>
           <div class="path__content">
             <span class="path__month">${monthLabel(program.month)}</span>
