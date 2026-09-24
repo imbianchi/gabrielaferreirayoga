@@ -45,8 +45,10 @@
   text-transform: uppercase;
   color: var(--color-light-green);
 }
-.path__item.is-current .path__num,
-.path__item.is-current .path__month { color: var(--color-dark-orange); }
+.path__item.is-available .path__num,
+.path__item.is-available .path__month { color: var(--color-dark-orange); }
+.path__item.is-enrolling .path__num,
+.path__item.is-enrolling .path__month { color: var(--color-dark-green); }
 .path__title {
   font-family: var(--font-serif);
   font-size: 18px;
@@ -65,16 +67,23 @@
   margin-top: 0.05rem;
 }
 
-.badge-available {
+.badge-available,
+.badge-enrolling {
   display: inline-block;
-  background: rgba(224, 138, 46, 0.15);
-  color: var(--color-dark-orange);
   font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 400;
   letter-spacing: 0.08em;
   padding: 4px 10px;
   border-radius: var(--radius-pill);
+}
+.badge-available {
+  background: rgba(224, 138, 46, 0.15);
+  color: var(--color-dark-orange);
+}
+.badge-enrolling {
+  background: rgba(107, 142, 99, 0.15);
+  color: var(--color-dark-green);
 }
 
 .path__badge-col {
