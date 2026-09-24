@@ -1,8 +1,8 @@
 {
     "sectionTitle": "Programa do Mês",
-    "month": 9,
-    "mainTitle": "Sistema Nervoso",
-    "textSummary": "Uma sequência de quatro práticas para aprender a reconhecer estados de tensão e desenvolver ferramentas para regressar ao equilíbrio.",
+    "month": 10,
+    "mainTitle": "Sistema Imunitário",
+    "textSummary": "Uma sequência de quatro práticas para aprender a criar condições que apoiem a capacidade natural de recuperação do organismo.",
     "textSummaryExtended": "Não é necessária experiência prévia em yoga.",
     "bulletInfo": [
         "4 semanas",
@@ -12,33 +12,33 @@
         "48€"
     ],
     "secondTitle": "Saber mais sobre o programa",
-    "secondTextSummary": "Ao longo de quatro semanas vamos trabalhar a relação entre corpo, respiração e atenção, aprendendo a reconhecer mais cedo os sinais de tensão e a desenvolver ferramentas que possam ser utilizadas também fora da aula.",
+    "secondTextSummary": "Ao longo de quatro semanas vamos explorar a relação entre respiração, movimento, descanso e gestão do stress, desenvolvendo práticas que possam apoiar o equilíbrio e a capacidade natural de recuperação do organismo.",
     "slider": {
         "title": "Como funciona uma aula",
         "textSummary": "Cada aula tem até 1h15 e pode incluir asanas e movimento, respiração, meditação, mantras e relaxamento. No final, haverá cerca de 15 minutos para chá e partilha, para quem quiser permanecer.",
         "ctaButton": {
             "text": "Quero inscrever-me",
-            "link": "https://wa.me/351914992464?text=Ol%C3%A1%2C%20Gabriela.%20Gostaria%20de%20me%20inscrever%20no%20Programa%20Sistema%20Nervoso%20de%20setembro."
+            "link": "https://wa.me/351914992464?text=Ol%C3%A1%2C%20Gabriela.%20Gostaria%20de%20me%20inscrever%20no%20Programa%20de%20outubro."
         },
         "slides": [
             {
-                "title": "Reconhecer a tensão",
-                "description": "Identificar os sinais do corpo e da mente quando começamos a entrar em sobrecarga.",
+                "title": "Respirar com consciência",
+                "description": "Explorar a respiração como ferramenta de presença e apoio na gestão do stress.",
                 "image": "reconhecer_tensao"
             },
             {
-                "title": "Respirar conscientemente",
-                "description": "Explorar a respiração como ferramenta de atenção e autorregulação.",
+                "title": "Mobilizar a energia",
+                "description": "Combinar movimento e respiração para trabalhar a vitalidade e a consciência corporal.",
                 "image": "respirar_conscientemente"
             },
             {
-                "title": "Recuperar presença",
-                "description": "Regressar ao corpo e ao momento presente quando a mente está acelerada ou dispersa.",
+                "title": "Criar espaço para recuperar",
+                "description": "Reconhecer a importância do descanso e criar condições para recuperar do esforço.",
                 "image": "recuperar_presenca"
             },
             {
-                "title": "Regressar ao equilíbrio",
-                "description": "Integrar as ferramentas do programa e aprender a levá-las para o quotidiano.",
+                "title": "Desenvolver resiliência",
+                "description": "Integrar práticas que apoiem uma resposta mais estável às exigências do quotidiano.",
                 "image": "regressar_ao_equilibrio"
             }
         ]
