@@ -153,14 +153,14 @@ function renderPrograms() {
 
   // Each program has its own Mondays-only class run (4 weekly classes).
   function mondaysInMonth(month) {
-    const mondays = [];
-    const d = new Date(year, month - 1, 1);
-    while (d.getMonth() === month - 1) {
-      if (d.getDay() === 1) mondays.push(new Date(d));
-      d.setDate(d.getDate() + 1);
-    }
-    return mondays;
+  const mondays = [];
+  const d = new Date(year, month - 1, 1);
+  while (d.getMonth() === month - 1) {
+    if (d.getDay() === 1) mondays.push(new Date(d));
+    d.setDate(d.getDate() + 1);
   }
+  return mondays;
+}
 
   // A program's badge state, recomputed on every build (the deploy workflow
   // rebuilds daily so this stays correct without a content change):
@@ -170,19 +170,32 @@ function renderPrograms() {
   //    the next program open) until its own first Monday class.
   // The two windows never overlap for one program, but adjacent programs
   // can each show their own badge at once during the handover week.
-  function badgeStateFor(program) {
-    const mondays = mondaysInMonth(program.month);
-    const firstClass = mondays[0];
-    const lastClass = mondays[mondays.length - 1];
-    const enrollmentOpensAt =
-      program.month === firstMonth
-        ? new Date(0) // the very first program has no prior month to open from — open from the start
-        : new Date(year, program.month - 2, 21);
+function badgeStateFor(program) {
+  const today = new Date();
+  const mondays = mondaysInMonth(program.month);
+  
+  const firstClass = new Date(mondays[0]);
+  firstClass.setHours(0, 0, 0, 0);
 
-    if (today >= firstClass && today <= lastClass) return 'available';
-    if (today >= enrollmentOpensAt && today < firstClass) return 'enrolling';
-    return null;
+  const lastClass = new Date(mondays[mondays.length - 1]);
+  lastClass.setHours(23, 59, 59, 999);
+
+  const prevMonthIndex = program.month - 2;
+  const enrollmentOpensAt =
+    program.month === firstMonth
+      ? new Date(0)
+      : new Date(year, prevMonthIndex, 21, 0, 0, 0);
+
+  if (today >= firstClass && today <= lastClass) {
+    return 'available';
   }
+
+  if (today >= enrollmentOpensAt && today < firstClass) {
+    return 'enrolling';
+  }
+
+  return null;
+}
 
   const items = programs
     .map((program, index) => {
@@ -332,6 +345,24 @@ function renderFooter() {
   return $.html();
 }
 
+function generateSitemap() {
+  const today = new Date().toISOString().split('T')[0];
+
+  const xml = `
+  <?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <url>
+        <loc>https://gabrielaferreirayoga.com/</loc>
+        <lastmod>${today}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+      </url>
+    </urlset>
+  `.trim();
+
+  writeFileSync(path.join(DIST, 'sitemap.xml'), xml);
+}
+
 function build() {
   const $ = cheerio.load(read('index.html'));
 
@@ -350,9 +381,11 @@ function build() {
 
   writeFileSync(path.join(DIST, 'index.html'), $.html());
 
-  for (const entry of ['assets', 'css', 'js', 'robots.txt', 'sitemap.xml', 'site.webmanifest', 'CNAME']) {
+  for (const entry of ['assets', 'css', 'js', 'robots.txt', 'site.webmanifest', 'CNAME']) {
     cpSync(path.join(ROOT, entry), path.join(DIST, entry), { recursive: true });
   }
+
+  generateSitemap();
 
   console.log('Built dist/');
 }
