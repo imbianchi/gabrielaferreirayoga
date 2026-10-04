@@ -18,28 +18,28 @@
         "textSummary": "Cada aula tem até 1h15 e pode incluir asanas e movimento, respiração, meditação, mantras e relaxamento. No final, haverá cerca de 15 minutos para chá e partilha, para quem quiser permanecer.",
         "ctaButton": {
             "text": "Quero inscrever-me",
-            "link": "https://wa.me/351914992464?text=Ol%C3%A1%2C%20Gabriela.%20Gostaria%20de%20me%20inscrever%20no%20Programa%20de%20outubro."
+            "message": "Olá, Gabriela. Gostaria de me inscrever no Programa de outubro."
         },
         "slides": [
             {
                 "title": "Respirar com consciência",
                 "description": "Explorar a respiração como ferramenta de presença e apoio na gestão do stress.",
-                "image": "reconhecer_tensao"
+                "image": "/assets/images/reconhecer_tensao.webp"
             },
             {
                 "title": "Mobilizar a energia",
                 "description": "Combinar movimento e respiração para trabalhar a vitalidade e a consciência corporal.",
-                "image": "respirar_conscientemente"
+                "image": "/assets/images/respirar_conscientemente.webp"
             },
             {
                 "title": "Criar espaço para recuperar",
                 "description": "Reconhecer a importância do descanso e criar condições para recuperar do esforço.",
-                "image": "recuperar_presenca"
+                "image": "/assets/images/recuperar_presenca.webp"
             },
             {
                 "title": "Desenvolver resiliência",
                 "description": "Integrar práticas que apoiem uma resposta mais estável às exigências do quotidiano.",
-                "image": "regressar_ao_equilibrio"
+                "image": "/assets/images/regressar_ao_equilibrio.webp"
             }
         ]
     }

@@ -8,7 +8,7 @@
  *
  * Output goes to dist/ (git-ignored); nothing generated is committed.
  */
-import { readFileSync, writeFileSync, mkdirSync, cpSync, rmSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, cpSync, rmSync, readdirSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import * as cheerio from 'cheerio';
@@ -21,6 +21,29 @@ const readJSON = (relPath) => JSON.parse(read(relPath));
 const readSvg = (name) => read(`assets/svg/${name}.svg`).trim();
 const monthLabel = (month) =>
   new Date(2000, month - 1).toLocaleDateString('pt-PT', { month: 'long' });
+
+// WhatsApp CTAs store only the plain-text message (easy to edit in the CMS);
+// the number comes from data/globals.json.
+const whatsappNumber = readJSON('data/globals.json').socials.find((s) => s.icon === 'whatsapp')?.number;
+if (!whatsappNumber) throw new Error('Missing WhatsApp number in data/globals.json');
+const whatsappLink = (message) => `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+// Fails the build (so nothing is deployed) if any data/*.json points to an
+// image that doesn't exist — e.g. one deleted from the CMS media library.
+function assertImagesExist() {
+  const missing = [];
+  const walk = (value, file) => {
+    if (typeof value === 'string' && value.startsWith('/assets/')) {
+      if (!existsSync(path.join(ROOT, value))) missing.push(`${file}: ${value}`);
+    } else if (value && typeof value === 'object') {
+      Object.values(value).forEach((v) => walk(v, file));
+    }
+  };
+  for (const file of readdirSync(path.join(ROOT, 'data'))) {
+    walk(readJSON(`data/${file}`), `data/${file}`);
+  }
+  if (missing.length) throw new Error(`Missing images:\n  ${missing.join('\n  ')}`);
+}
 
 function loadFragment(modulePath) {
   return cheerio.load(read(modulePath), null, false);
@@ -35,7 +58,7 @@ function renderHeader() {
   );
 
   const cta = $('.nav__cta-desktop');
-  cta.attr('href', json.ctaButton.link);
+  cta.attr('href', whatsappLink(json.ctaButton.message));
   cta.html(`${readSvg('whatsapp')}${json.ctaButton.label}${readSvg('arrow')}`);
 
   return $.html();
@@ -46,7 +69,7 @@ function renderHero() {
   const $ = loadFragment('modules/hero.html');
 
   const img = $('.hero__bg img');
-  img.attr('src', `/assets/images/${json.image}.webp`);
+  img.attr('src', json.image);
 
   $('.hero__content h1').text(json.mainTitle);
   $('.hero__accent').text(json.subTitle);
@@ -87,7 +110,7 @@ function renderCurrentProgram() {
           return `
             <article class="lesson-card" role="listitem">
               <img
-                src="/assets/images/${slide.image}.webp"
+                src="${slide.image}"
                 alt="Aula ${num} — ${slide.title}"
                 class="lesson-card__img"
                 width="700"
@@ -108,7 +131,7 @@ function renderCurrentProgram() {
     $(bodyParagraphs[1]).text(slider.textSummary);
 
     const ctaButton = $('.accordion__inner-btn');
-    ctaButton.attr('href', slider.ctaButton.link);
+    ctaButton.attr('href', whatsappLink(slider.ctaButton.message));
     ctaButton.html(`${slider.ctaButton.text}${readSvg('arrow')}<span class="sr-only"> (abre em nova aba)</span>`);
   }
 
@@ -119,7 +142,7 @@ function renderWhatItIs() {
   const json = readJSON('data/whatItIs.json');
   const $ = loadFragment('modules/whatItIs.html');
 
-  $('.kundalini__photo-col img').attr('src', `/assets/images/${json.image}.webp`);
+  $('.kundalini__photo-col img').attr('src', json.image);
   $('.kundalini__text-col .eyebrow').text(json.sectionTitle);
   $('#kundalini-heading').text(json.mainTitle);
 
@@ -237,7 +260,7 @@ function renderWhoAmI() {
   $(paragraphs[1]).text(json.textSummaryExtended);
   $(paragraphs[2]).text(json.textSummaryExtendedTwo);
 
-  $('.about__photo-col img').attr('src', `/assets/images/${json.image}.webp`);
+  $('.about__photo-col img').attr('src', json.image);
 
   return $.html();
 }
@@ -283,12 +306,12 @@ function renderContact() {
   const json = readJSON('data/contact.json');
   const $ = loadFragment('modules/contact.html');
 
-  $('.cta-banner__bg img').attr('src', `/assets/images/${json.image}.webp`);
+  $('.cta-banner__bg img').attr('src', json.image);
   $('.cta-banner__content .eyebrow').text(json.sectionTitle);
   $('#cta-banner-heading').text(json.mainTitle);
 
   const cta = $('.cta-banner__btn');
-  cta.attr('href', json.ctaButton.link);
+  cta.attr('href', whatsappLink(json.ctaButton.message));
   cta.html(`${json.ctaButton.text}${readSvg('arrow')}<span class="sr-only"> (abre em nova aba)</span>`);
 
   return $.html();
@@ -299,7 +322,7 @@ function renderFooter() {
   const globalsJson = readJSON('data/globals.json');
   const $ = loadFragment('modules/footer.html');
 
-  $('.site-footer .logo__img').attr('src', `/assets/images/${footerJson.logoImage}.png`);
+  $('.site-footer .logo__img').attr('src', footerJson.logoImage);
   $('.footer__contact-heading').text(footerJson.columnTitle);
   $('.footer__copy-text').text(footerJson.text);
 
@@ -345,6 +368,56 @@ function renderFooter() {
   return $.html();
 }
 
+// Fills <head> meta tags and JSON-LD from data/seo.json and data/faq.json,
+// so SEO is edited like any other content and the FAQ schema never drifts
+// from the visible FAQ. index.html keeps the tags with empty values; the build
+// fails if any of them is missing, so the site never ships without SEO.
+function renderSeo($) {
+  const seo = readJSON('data/seo.json');
+  const faq = readJSON('data/faq.json');
+  const imageUrl = `https://gabrielaferreirayoga.com${seo.image}`;
+
+  const find = (selector, count = 1) => {
+    const el = $(selector);
+    if (el.length !== count) throw new Error(`index.html: expected ${count} "${selector}", found ${el.length}`);
+    return el;
+  };
+
+  find('title').text(seo.title);
+  find('meta[name="description"]').attr('content', seo.description);
+  find('meta[property="og:title"], meta[name="twitter:title"]', 2).attr('content', seo.title);
+  find('meta[property="og:description"], meta[name="twitter:description"]', 2).attr('content', seo.description);
+  find('meta[property="og:image"], meta[name="twitter:image"]', 2).attr('content', imageUrl);
+  find('meta[property="og:image:alt"], meta[name="twitter:image:alt"]', 2).attr('content', seo.imageAlt);
+
+  const filled = [];
+  find('script[type="application/ld+json"]', 2).each((_, el) => {
+    const data = JSON.parse($(el).text());
+    if (data['@type'] === 'Organization') {
+      data.description = seo.description;
+      data.image[0] = imageUrl;
+      [seo.program, seo.singleClass].forEach((offer, i) => {
+        const item = data.hasOfferCatalog.itemListElement[i];
+        item.itemOffered.name = offer.name;
+        item.itemOffered.description = offer.description;
+        item.price = String(offer.price);
+      });
+    }
+    if (data['@type'] === 'FAQPage') {
+      data.mainEntity = faq.questions.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: { '@type': 'Answer', text: item.answer },
+      }));
+    }
+    filled.push(data['@type']);
+    $(el).text(JSON.stringify(data));
+  });
+  if (!filled.includes('Organization') || !filled.includes('FAQPage')) {
+    throw new Error(`index.html: expected Organization and FAQPage JSON-LD, found ${filled.join(', ')}`);
+  }
+}
+
 function generateSitemap() {
   const today = new Date().toISOString().split('T')[0];
 
@@ -364,8 +437,11 @@ function generateSitemap() {
 }
 
 function build() {
+  assertImagesExist();
+
   const $ = cheerio.load(read('index.html'));
 
+  renderSeo($);
   $('#header').html(renderHeader());
   $('#hero').html(renderHero());
   $('#program').replaceWith(renderCurrentProgram());

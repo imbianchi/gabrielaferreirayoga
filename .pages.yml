@@ -1,0 +1,230 @@
+# Pages CMS config (https://pagescms.org) — content editor for data/*.json.
+# Every save commits to main; the deploy workflow publishes it (~2 min).
+# Every field of each JSON must be listed here: on save, the CMS rewrites the
+# file with only the fields defined below. Technical fields are `readonly`.
+
+settings:
+  config: false # editors can't open/edit this file from the CMS
+
+media:
+  input: assets/images
+  output: /assets/images
+  extensions: [jpg, jpeg, png, webp]
+  rename: safe # "Foto Aula 1.JPG" -> "foto-aula-1.jpg"
+
+components:
+  whatsappButton:
+    type: object
+    label: Botão do WhatsApp
+    fields:
+      - { name: text, label: Texto do botão, type: string, required: true, options: { maxlength: 40 } }
+      - { name: message, label: Mensagem pré-escrita, type: text, required: true, description: "Mensagem que aparece já escrita no WhatsApp de quem clica no botão." }
+
+content:
+  - name: siteContent
+    label: Conteúdo do site
+    type: group
+    items:
+      - name: currentProgram
+        label: Programa do Mês
+        description: "A secção que muda todos os meses."
+        type: file
+        format: json
+        path: data/currentProgram.json
+        fields:
+          - { name: sectionTitle, label: Etiqueta da secção, type: string, required: true, description: "Texto pequeno acima do título. O nome do mês é acrescentado automaticamente." }
+          - { name: month, label: Mês, type: number, required: true, options: { min: 1, max: 12 }, description: "Número do mês: 1 = janeiro … 10 = outubro, 11 = novembro, 12 = dezembro." }
+          - { name: mainTitle, label: Título, type: string, required: true }
+          - { name: textSummary, label: Texto de apresentação, type: text, required: true }
+          - { name: textSummaryExtended, label: Nota, type: text, description: "Frase curta abaixo do texto (opcional)." }
+          - { name: bulletInfo, label: Informações rápidas, type: string, required: true, list: { min: 1, collapsible: false }, description: "Uma informação por linha: duração, dia e hora, local, preço…" }
+          - { name: secondTitle, label: Título do botão "saber mais", type: string, required: true }
+          - { name: secondTextSummary, label: Texto dentro do "saber mais", type: text, required: true }
+          - name: slider
+            label: Aulas do programa
+            type: object
+            fields:
+              - { name: title, label: Título, type: string, required: true }
+              - { name: textSummary, label: Como funciona uma aula, type: text, required: true }
+              - { name: ctaButton, component: whatsappButton, label: Botão de inscrição }
+              - name: slides
+                label: Aulas
+                type: object
+                list: { min: 1, max: 8, collapsible: { collapsed: true, summary: "Aula {index}: {title}" } }
+                description: "Um cartão por aula, pela ordem em que acontecem."
+                fields:
+                  - { name: title, label: Título da aula, type: string, required: true }
+                  - { name: description, label: Descrição, type: text, required: true }
+                  - { name: image, label: Imagem, type: image, required: true, description: "Formato vertical (700x980)." }
+
+      - name: programs
+        label: Os quatro programas
+        description: "Lista de programas com os selos \"Inscrição aberta\" e \"Disponível\" (calculados automaticamente pelas datas)."
+        type: file
+        format: json
+        path: data/programs.json
+        fields:
+          - { name: sectionTitle, label: Etiqueta da secção, type: string, required: true }
+          - { name: mainTitle, label: Título, type: string, required: true }
+          - { name: subTitle, label: Subtítulo, type: string, required: true }
+          - { name: wordToHighlight, label: Palavras em itálico no subtítulo, type: string, description: "Copia as palavras exatamente como estão no subtítulo. Se não coincidirem, simplesmente não ficam em itálico." }
+          - { name: textSummary, label: Texto, type: text, required: true }
+          - name: programs
+            label: Programas
+            type: object
+            list: { min: 1, max: 12, collapsible: { collapsed: true, summary: "{title}" } }
+            fields:
+              - { name: month, label: Mês, type: number, required: true, options: { min: 1, max: 12 }, description: "Número do mês: 9 = setembro, 10 = outubro…" }
+              - { name: title, label: Título, type: string, required: true }
+              - { name: textSummary, label: Descrição curta, type: text, required: true }
+
+      - name: hero
+        label: Topo da página
+        description: "A primeira coisa que se vê ao abrir o site."
+        type: file
+        format: json
+        path: data/hero.json
+        fields:
+          - { name: mainTitle, label: Título, type: string, required: true }
+          - { name: subTitle, label: Subtítulo, type: string, required: true }
+          - { name: textSummary, label: Texto, type: text, required: true }
+          - { name: image, label: Imagem de fundo, type: image, required: true, description: "Formato horizontal, boa qualidade." }
+          - name: ctaButton
+            label: Botão
+            type: object
+            fields:
+              - { name: title, label: Texto do botão, type: string, required: true, options: { maxlength: 40 } }
+              - { name: link, label: Link, type: string, readonly: true }
+
+      - name: whatItIs
+        label: O que é Kundalini Yoga
+        type: file
+        format: json
+        path: data/whatItIs.json
+        fields:
+          - { name: sectionTitle, label: Etiqueta da secção, type: string, required: true }
+          - { name: mainTitle, label: Título, type: string, required: true }
+          - { name: textSummary, label: Parágrafo 1, type: text, required: true }
+          - { name: textSummaryExtended, label: Parágrafo 2, type: text, required: true }
+          - { name: image, label: Imagem, type: image, required: true }
+
+      - name: whoAmI
+        label: Quem sou
+        type: file
+        format: json
+        path: data/whoAmI.json
+        fields:
+          - { name: sectionTitle, label: Etiqueta da secção, type: string, required: true }
+          - { name: mainTitle, label: Nome, type: string, required: true }
+          - { name: subTitle, label: Subtítulo, type: string, required: true }
+          - { name: textSummary, label: Parágrafo 1 (destaque), type: text, required: true }
+          - { name: textSummaryExtended, label: Parágrafo 2, type: text, required: true }
+          - { name: textSummaryExtendedTwo, label: Parágrafo 3, type: text, required: true }
+          - { name: image, label: Foto, type: image, required: true }
+
+      - name: faq
+        label: Perguntas frequentes
+        description: "Também é usado pelo Google para mostrar as perguntas nos resultados de pesquisa."
+        type: file
+        format: json
+        path: data/faq.json
+        fields:
+          - { name: sectionTitle, label: Etiqueta da secção, type: string, required: true }
+          - { name: mainTitle, label: Título, type: string, required: true }
+          - { name: wordToHighlight, label: Palavra em itálico no título, type: string, description: "Copia a palavra exatamente como está no título." }
+          - name: questions
+            label: Perguntas
+            type: object
+            list: { min: 1, collapsible: { collapsed: true, summary: "{question}" } }
+            fields:
+              - { name: question, label: Pergunta, type: string, required: true }
+              - { name: answer, label: Resposta, type: text, required: true }
+
+      - name: contact
+        label: Contacto (fim da página)
+        type: file
+        format: json
+        path: data/contact.json
+        fields:
+          - { name: sectionTitle, label: Etiqueta da secção, type: string, required: true }
+          - { name: mainTitle, label: Título, type: string, required: true }
+          - { name: image, label: Imagem de fundo, type: image, required: true }
+          - { name: ctaButton, component: whatsappButton }
+
+  - name: settings
+    label: Definições
+    type: group
+    items:
+      - name: seo
+        label: Google e partilhas (SEO)
+        description: "Como o site aparece no Google e quando o link é partilhado no WhatsApp, Instagram, Facebook…"
+        type: file
+        format: json
+        path: data/seo.json
+        fields:
+          - { name: title, label: Título no Google, type: string, required: true, options: { maxlength: 70 }, description: "Também aparece no separador do browser. Ideal: até 60 caracteres." }
+          - { name: description, label: Descrição no Google, type: text, required: true, options: { maxlength: 170 }, description: "Ideal: entre 120 e 160 caracteres." }
+          - { name: image, label: Imagem de partilha, type: image, required: true, description: "Aparece ao partilhar o link. Tamanho ideal: 1200x630, formato JPG." }
+          - { name: imageAlt, label: Descrição da imagem, type: string, required: true, description: "O que se vê na imagem, em poucas palavras (acessibilidade)." }
+          - name: program
+            label: Programa do Mês (para o Google)
+            description: "Não aparece no site: é a informação que o Google lê sobre o programa. Atualizar todos os meses junto com o Programa do Mês."
+            type: object
+            fields:
+              - { name: name, label: Nome, type: string, required: true, description: "Ex.: Programa do Mês (Outubro): Sistema Imunitário" }
+              - { name: description, label: Descrição, type: text, required: true, description: "Duração, horário e o que inclui." }
+              - { name: price, label: Preço (€), type: number, required: true, options: { min: 0 }, description: "Só o número, sem €. Ex.: 48" }
+          - name: singleClass
+            label: Aula avulsa (para o Google)
+            description: "Não aparece no site: é a informação que o Google lê sobre a aula avulsa."
+            type: object
+            fields:
+              - { name: name, label: Nome, type: string, required: true }
+              - { name: description, label: Descrição, type: text, required: true }
+              - { name: price, label: Preço (€), type: number, required: true, options: { min: 0 }, description: "Só o número, sem €. Ex.: 15" }
+
+      - name: globals
+        label: WhatsApp e Instagram
+        description: "Usados em todos os botões e links de contacto do site."
+        type: file
+        format: json
+        path: data/globals.json
+        fields:
+          - name: socials
+            label: Redes
+            type: object
+            list: { min: 2, max: 2, collapsible: false }
+            fields:
+              - { name: icon, label: Rede, type: select, readonly: true, options: { values: [instagram, whatsapp] } }
+              - { name: userName, label: Utilizador do Instagram (sem @), type: string, pattern: { regex: "^[A-Za-z0-9._]*$", message: "Só letras, números, pontos e _ (sem @ nem espaços)." } }
+              - { name: number, label: Número de WhatsApp, type: string, pattern: { regex: "^([0-9]{9,15})?$", message: "Só números, com indicativo e sem espaços. Ex.: 351912345678" } }
+
+      - name: header
+        label: Menu
+        type: file
+        format: json
+        path: data/header.json
+        fields:
+          - name: menuItems
+            label: Itens do menu
+            type: object
+            list: { min: 4, max: 4, collapsible: false }
+            fields:
+              - { name: label, label: Texto, type: string, required: true }
+              - { name: link, label: Secção, type: string, readonly: true }
+          - name: ctaButton
+            label: Botão do WhatsApp
+            type: object
+            fields:
+              - { name: label, label: Texto do botão, type: string, required: true, options: { maxlength: 30 } }
+              - { name: message, label: Mensagem pré-escrita, type: text, required: true, description: "Mensagem que aparece já escrita no WhatsApp de quem clica no botão." }
+
+      - name: footer
+        label: Rodapé
+        type: file
+        format: json
+        path: data/footer.json
+        fields:
+          - { name: logoImage, label: Logótipo, type: image, readonly: true }
+          - { name: columnTitle, label: Título da coluna de contacto, type: string, required: true }
+          - { name: text, label: Texto de direitos, type: string, required: true }
