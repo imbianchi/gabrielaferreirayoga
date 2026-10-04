@@ -41,8 +41,10 @@ Served as a **GitHub Page**, built and deployed automatically by `.github/workfl
 
 ## Edit content
 
-Content lives in `data/*.json` — one file per section (`hero.json`, `currentProgram.json`, `whatItIs.json`, `programs.json`, `whoAmI.json`, `faq.json`, `contact.json`, `footer.json`, `header.json`). Text, links (WhatsApp, Instagram) and prices are edited there, not in the HTML. Push to `main` (or wait for the daily rebuild) and the live site picks it up automatically.
+Content lives in `data/*.json` — one file per section (`hero.json`, `currentProgram.json`, `whatItIs.json`, `programs.json`, `whoAmI.json`, `faq.json`, `contact.json`, `footer.json`, `header.json`, `globals.json`, `seo.json`). Text, prices and WhatsApp messages are edited there, not in the HTML; image fields hold the full path (`/assets/images/hero.webp`). WhatsApp links are built from the message plus the number in `globals.json`. Push to `main` (or wait for the scheduled rebuild) and the live site picks it up automatically.
+
+Non-technical editors use [Pages CMS](https://pagescms.org): a form-based editor over `data/*.json`, configured in `.pages.yml`. Each save commits to `main` and triggers the deploy. Every JSON field must be declared in `.pages.yml` — on save, the CMS rewrites the file with only the declared fields. The build fails (and nothing is deployed) if a JSON references a missing image or the WhatsApp number is empty.
 
 ## SEO
 
-Search metadata (title, description, Open Graph, Twitter) and structured data (LocalBusiness + hasOfferCatalog + FAQPage JSON-LD) are in the `<head>` of `index.html`. Keep prices in the catalog in sync with `data/currentProgram.json` and `data/faq.json`.
+Title, description and share image come from `data/seo.json`; the build writes them into the `<head>` (title, Open Graph, Twitter). The FAQPage JSON-LD is generated from `data/faq.json`; the offer catalog (monthly program and single class: name, description, price) from `data/seo.json`. `index.html` keeps these tags with empty values, and the build fails if any is missing. Prices also appear in visible text (`currentProgram.json` → `bulletInfo`, `faq.json`) — keep them in sync.
