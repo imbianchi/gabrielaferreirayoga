@@ -1,16 +1,16 @@
 {
-    "title": "Gabriela Ferreira Yoga | Kundalini Yoga em Vila Nova de Gaia",
-    "description": "Aulas de Kundalini Yoga em Vila Nova de Gaia. Programas mensais para desenvolver presença, consciência e equilíbrio, sem experiência prévia necessária.",
-    "image": "/assets/images/og-cover.jpg",
-    "imageAlt": "Gabriela Ferreira Yoga — Kundalini Yoga em Vila Nova de Gaia",
-    "program": {
-        "name": "Programa do Mês (Outubro): Sistema Imunitário",
-        "description": "Programa mensal de 4 semanas (segundas-feiras às 19h). Inclui: Respiração e vitalidade, Mobilizar a energia, Criar espaço para recuperar e Desenvolver resiliência.",
-        "price": 48
-    },
-    "singleClass": {
-        "name": "Aula Avulsa de Kundalini Yoga",
-        "description": "Inscrição numa aula individual do programa mensal, sujeita à disponibilidade de vaga.",
-        "price": 15
-    }
+  "title": "Gabriela Ferreira Yoga | Kundalini Yoga em Vila Nova de Gaia",
+  "description": "Aulas de Kundalini Yoga em Vila Nova de Gaia. Programas mensais para desenvolver presença, consciência e equilíbrio, sem experiência prévia necessária.",
+  "image": "/assets/images/og-cover.jpg",
+  "imageAlt": "Gabriela Ferreira Yoga — Kundalini Yoga em Vila Nova de Gaia",
+  "program": {
+    "name": "Programa do Mês (Novembro): Atenção e Clareza",
+    "description": "Programa mensal de quatro semanas, com possibilidade de participação presencial ou através das gravações. Inclui: Observar, Clareza, Foco e Decisão.",
+    "price": 48
+  },
+  "singleClass": {
+    "name": "Participação numa aula de Kundalini Yoga",
+    "description": "Participação numa aula presencial do programa mensal, pelo valor de 15€, sujeita à disponibilidade de vaga.",
+    "price": 15
+  }
 }
