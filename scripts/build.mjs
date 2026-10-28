@@ -167,7 +167,9 @@ function renderPrograms() {
   $('.path__lead').text(json.textSummary);
 
   const programs = json.programs;
-  const firstMonth = Math.min(...programs.map((p) => p.month));
+  // Sign-ups for a program open once its content is published as the
+  // current program in data/currentProgram.json (the push triggers a deploy).
+  const publishedMonth = readJSON('data/currentProgram.json').month;
   const year = new Date().getFullYear();
   const today = (() => {
     const d = new Date();
@@ -187,10 +189,12 @@ function renderPrograms() {
 
   // A program's badge state, recomputed on every build (the deploy workflow
   // rebuilds daily so this stays correct without a content change):
-  //  - "available": from its first Monday class through its last Monday
-  //    class — the program is running and single classes can still be sold.
-  //  - "enrolling": from the 21st of the previous month (when sign-ups for
-  //    the next program open) until its own first Monday class.
+  //  - "available": from its first Monday class until the first Monday of the
+  //    next month — the last class's week runs through the following Sunday,
+  //    even when it spills into the next month (e.g. Oct 2026's last class on
+  //    the 26th stays available until Nov 2).
+  //  - "enrolling": from when its content is published in
+  //    data/currentProgram.json until its own first Monday class.
   // The two windows never overlap for one program, but adjacent programs
   // can each show their own badge at once during the handover week.
 function badgeStateFor(program) {
@@ -200,20 +204,14 @@ function badgeStateFor(program) {
   const firstClass = new Date(mondays[0]);
   firstClass.setHours(0, 0, 0, 0);
 
-  const lastClass = new Date(mondays[mondays.length - 1]);
-  lastClass.setHours(23, 59, 59, 999);
+  const availableUntil = new Date(year, program.month, 1);
+  while (availableUntil.getDay() !== 1) availableUntil.setDate(availableUntil.getDate() + 1);
 
-  const prevMonthIndex = program.month - 2;
-  const enrollmentOpensAt =
-    program.month === firstMonth
-      ? new Date(0)
-      : new Date(year, prevMonthIndex, 21, 0, 0, 0);
-
-  if (today >= firstClass && today <= lastClass) {
+  if (today >= firstClass && today < availableUntil) {
     return 'available';
   }
 
-  if (today >= enrollmentOpensAt && today < firstClass) {
+  if (program.month === publishedMonth && today < firstClass) {
     return 'enrolling';
   }
 
